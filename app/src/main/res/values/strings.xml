@@ -1,0 +1,47 @@
+<resources>
+
+    <string name="app_name">Time</string>
+    <string name="title_summary">Summary</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_book_time">Book Time</string>
+    <string name="title_activity_main2">DELETE?</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string-array name="months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+
+    </string-array>
+
+    <string-array name="years_array">
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+    </string-array>
+
+
+
+    <string name="time_card_project">Code: %1$s Task: %2$s</string>
+    <string name="time_card_period">Period: %1$s/%2$s -> %3$s/%4$s</string>
+    <string name="time_card_quantity">%1$s Hours</string>
+
+</resources>

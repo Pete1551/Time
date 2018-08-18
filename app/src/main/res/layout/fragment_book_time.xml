@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
+
+    <TextView
+        android:id="@+id/book_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book Time"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/text_input_project_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="Project Code"
+        android:inputType="textShortMessage"
+        app:layout_constraintTop_toBottomOf="@id/book_time_title" />
+
+    <EditText
+        android:id="@+id/text_input_project_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="Project Task"
+        android:inputType="textShortMessage"
+        app:layout_constraintTop_toBottomOf="@id/text_input_project_code" />
+
+    <TextView
+        android:id="@+id/start_date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@id/start_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/text_input_project_task" />
+
+    <TextView
+        android:id="@+id/end_date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@id/end_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/text_input_project_task" />
+
+    <android.widget.DatePicker
+        android:id="@+id/start_date_picker"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="true"
+        android:datePickerMode="spinner"
+        android:paddingHorizontal="-50dp"
+        android:paddingLeft="-140dp"
+        android:paddingRight="-140dp"
+        android:scaleX="0.90"
+        android:spinnersShown="false"
+        android:startYear="2018"
+        app:layout_constraintTop_toBottomOf="@id/start_date_title" />
+
+    <android.widget.DatePicker
+        android:id="@+id/end_date_picker"
+        android:layout_width="210dp"
+        android:layout_height="550dp"
+        android:clipToPadding="true"
+        android:datePickerMode="spinner"
+        android:paddingLeft="-50dp"
+        android:paddingRight="-50dp"
+        android:scaleX="0.90"
+        android:spinnersShown="false"
+        android:startYear="2018"
+        app:layout_constraintStart_toEndOf="@id/start_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/end_date_title" />
+
+    <EditText
+        android:id="@+id/num_input_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:hint="Number of Hours"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="@id/start_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/start_date_picker" />
+
+    <CheckBox
+        android:id="@+id/checkbox_include_weekends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Include Weekends"
+        app:layout_constraintBottom_toBottomOf="@id/num_input_hours"
+        app:layout_constraintStart_toStartOf="@id/end_date_picker" />
+
+
+    <Button
+        android:id="@+id/button_book_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book Time"
+        app:layout_constraintTop_toBottomOf="@id/num_input_hours" />
+
+
+</android.support.constraint.ConstraintLayout>
