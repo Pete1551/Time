@@ -60,14 +60,7 @@
         android:id="@+id/start_date_picker"
         android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:clipToPadding="true"
-        android:datePickerMode="spinner"
-        android:paddingHorizontal="-50dp"
-        android:paddingLeft="-140dp"
-        android:paddingRight="-140dp"
-        android:scaleX="0.90"
-        android:spinnersShown="false"
-        android:startYear="2018"
+        
         app:layout_constraintTop_toBottomOf="@id/start_date_title" />
 
     <android.widget.DatePicker
