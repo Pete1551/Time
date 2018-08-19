@@ -39,7 +39,6 @@
     </string-array>
 
 
-
     <string name="time_card_project">Code: %1$s Task: %2$s</string>
     <string name="time_card_period">Period: %1$s/%2$s -> %3$s/%4$s</string>
     <string name="time_card_quantity">%1$s Hours</string>

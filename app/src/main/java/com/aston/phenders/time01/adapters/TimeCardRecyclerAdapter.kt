@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.holders.TimeCardHolder
 import com.aston.phenders.time01.models.TimeItem
-import org.jetbrains.anko.AnkoLogger
 
 
 class TimeCardRecyclerAdapter() : RecyclerView.Adapter<TimeCardHolder>() {

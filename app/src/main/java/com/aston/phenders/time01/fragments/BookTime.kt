@@ -1,14 +1,16 @@
 package com.aston.phenders.time01.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.TextView
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
@@ -16,6 +18,10 @@ import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.warn
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class BookTime : Fragment(), AnkoLogger {
 
@@ -26,22 +32,83 @@ class BookTime : Fragment(), AnkoLogger {
 
         val projectCode = view.findViewById<EditText>(R.id.text_input_project_code)
         val projectTask = view.findViewById<EditText>(R.id.text_input_project_task)
-        val startDate = view.findViewById<DatePicker>(R.id.start_date_picker)
-        val endDate = view.findViewById<DatePicker>(R.id.end_date_picker)
+        val buttonStartDate = view.findViewById<Button>(R.id.button_book_start_date)
+        val buttonEndDate = view.findViewById<Button>(R.id.button_book_end_date)
+        val selectedStartDate = view.findViewById<TextView>(R.id.start_date_selected_date)
+        val selectedEndDate = view.findViewById<TextView>(R.id.end_date_selected_date)
         val numOfHours = view.findViewById<EditText>(R.id.num_input_hours)
         val includeWeekends = view.findViewById<CheckBox>(R.id.checkbox_include_weekends)
-        val bookTimeButton = view?.findViewById<Button>(R.id.button_book_time)
+        val bookTimeButton = view.findViewById<Button>(R.id.button_book_time)
+
+        // val sdf = SimpleDateFormat("dd/MM/yyyy")
+        // val dateNow = sdf.format(Date())
+
+
+        var date: Calendar = Calendar.getInstance()
+
+        var startDateYear = date.get(Calendar.YEAR)
+        var endDateYear = startDateYear
+
+        var startDateMonth = date.get(Calendar.MONTH)
+        var endDateMonth = startDateMonth
+
+        var startDateDay = date.get(Calendar.DAY_OF_MONTH)
+        var endDateDay = startDateDay
+
+        var initialDisplayMonth = startDateMonth + 1
+        val dateNowString = ("" + startDateDay + "/" + initialDisplayMonth + "/" + startDateYear)
+
+        selectedStartDate.text = dateNowString
+        selectedEndDate.text = dateNowString
+
+
+        buttonStartDate?.setOnClickListener {
+
+            val dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
+                // Display Selected date in textbox
+                var displayMonth = selectedMonth + 1
+                selectedStartDate.text = ("" + selectedDay + "/" + displayMonth + "/" + selectedYear)
+
+                //set values outside of interface
+                startDateYear = selectedYear
+                startDateMonth = selectedMonth
+                startDateDay = selectedDay
+
+
+            }, startDateYear, startDateMonth, startDateDay)
+            dpd.show()
+
+        }
+        buttonEndDate?.setOnClickListener {
+
+            val dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
+                // Display Selected date in textbox
+                var displayMonth = selectedMonth + 1
+                selectedEndDate.text = ("" + selectedDay + "/" + displayMonth + "/" + selectedYear)
+
+                //set values outside of interface
+                endDateYear = selectedYear
+                endDateMonth = selectedMonth
+                endDateDay = selectedDay
+
+
+            }, endDateYear, endDateMonth, endDateDay)
+            dpd.show()
+
+        }
 
         bookTimeButton?.setOnClickListener {
+
+            var monthsArray = (resources.getStringArray(R.array.months_array))
 
 
             var timeItem = TimeItem()
             timeItem.projectCode = projectCode.text.toString()
             timeItem.projectTask = projectTask.text.toString()
-            timeItem.month = startDate.month.toString()
-            timeItem.year = startDate.year.toString()
-            timeItem.startDate = startDate.dayOfMonth.toLong()
-            timeItem.endDate = endDate.dayOfMonth.toLong()
+            timeItem.year = startDateYear.toString()
+            timeItem.month = monthsArray[startDateMonth]
+            timeItem.startDate = startDateDay.toLong()
+            timeItem.endDate = endDateDay.toLong()
 
             addTimeBooking(timeItem)
 
@@ -59,9 +126,7 @@ class BookTime : Fragment(), AnkoLogger {
         val db = DatabaseHelper(activity!!.applicationContext)
         val tt = TimeTable(db)
 
-
         tt.addNewTime(timeItem)
-
         toast("Time Recorded")
 
 

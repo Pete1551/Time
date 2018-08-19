@@ -36,7 +36,7 @@
         android:inputType="textShortMessage"
         app:layout_constraintTop_toBottomOf="@id/text_input_project_code" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/start_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,28 +54,41 @@
         android:textAppearance="@android:style/TextAppearance.Material.Display1"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@id/end_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/text_input_project_task" /> !-->
+    <Button
+        android:id="@+id/button_book_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Choose Start Date"
         app:layout_constraintTop_toBottomOf="@id/text_input_project_task" />
 
-    <android.widget.DatePicker
-        android:id="@+id/start_date_picker"
-        android:layout_width="192dp"
-        android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/start_date_title" />
+    <Button
+        android:id="@+id/button_book_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Choose End Date"
+        app:layout_constraintStart_toEndOf="@id/button_book_start_date"
+        app:layout_constraintTop_toBottomOf="@id/text_input_project_task" />
 
-    <android.widget.DatePicker
-        android:id="@+id/end_date_picker"
-        android:layout_width="210dp"
-        android:layout_height="550dp"
-        android:clipToPadding="true"
-        android:datePickerMode="spinner"
-        android:paddingLeft="-50dp"
-        android:paddingRight="-50dp"
-        android:scaleX="0.90"
-        android:spinnersShown="false"
-        android:startYear="2018"
-        app:layout_constraintStart_toEndOf="@id/start_date_picker"
-        app:layout_constraintTop_toBottomOf="@id/end_date_title" />
+    <TextView
+        android:id="@+id/start_date_selected_date"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textSize="23sp"
+        app:layout_constraintStart_toStartOf="@id/button_book_start_date"
+        app:layout_constraintTop_toBottomOf="@id/button_book_start_date" />
+
+    <TextView
+        android:id="@+id/end_date_selected_date"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textSize="23sp"
+        app:layout_constraintStart_toStartOf="@id/button_book_end_date"
+        app:layout_constraintTop_toBottomOf="@id/button_book_start_date" />
+
 
     <EditText
         android:id="@+id/num_input_hours"
@@ -84,8 +97,8 @@
         android:layout_marginTop="6dp"
         android:hint="Number of Hours"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="@id/start_date_picker"
-        app:layout_constraintTop_toBottomOf="@id/start_date_picker" />
+        app:layout_constraintStart_toStartOf="@id/start_date_selected_date"
+        app:layout_constraintTop_toBottomOf="@id/start_date_selected_date" />
 
     <CheckBox
         android:id="@+id/checkbox_include_weekends"
@@ -93,7 +106,7 @@
         android:layout_height="wrap_content"
         android:text="Include Weekends"
         app:layout_constraintBottom_toBottomOf="@id/num_input_hours"
-        app:layout_constraintStart_toStartOf="@id/end_date_picker" />
+        app:layout_constraintStart_toStartOf="@id/button_book_end_date" />
 
 
     <Button
