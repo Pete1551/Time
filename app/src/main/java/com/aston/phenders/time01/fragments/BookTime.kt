@@ -17,7 +17,6 @@ import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.warn
 import java.util.*
 
 
@@ -102,7 +101,7 @@ class BookTime : Fragment(), AnkoLogger {
             timeItem.projectCode = projectCode.text.toString()
             timeItem.projectTask = projectTask.text.toString()
             timeItem.year = startDateYear.toString()
-            timeItem.month = (startDateMonth+1).toString()
+            timeItem.month = (startDateMonth + 1).toString()
             timeItem.startDate = startDateDay.toLong()
             timeItem.endDate = endDateDay.toLong()
 

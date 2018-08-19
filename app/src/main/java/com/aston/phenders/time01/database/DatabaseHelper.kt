@@ -11,7 +11,7 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
 
 
         db?.createTable("time", false,
-                "timeId" to INTEGER + PRIMARY_KEY ,
+                "timeId" to INTEGER + PRIMARY_KEY,
                 "month" to TEXT,
                 "startDate" to INTEGER,
                 "endDate" to INTEGER,
