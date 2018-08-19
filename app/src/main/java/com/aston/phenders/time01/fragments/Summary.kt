@@ -57,7 +57,7 @@ class Summary : Fragment(), AnkoLogger {
 
         var db = DatabaseHelper(activity!!.applicationContext)
 
-        var month: String = monthSpinner!!.selectedItemPosition.toString()
+        var month: String = monthSpinner!!.selectedItem.toString()
 
         var year: String = yearSpinner!!.selectedItem.toString()
 

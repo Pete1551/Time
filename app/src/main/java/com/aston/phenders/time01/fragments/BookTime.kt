@@ -2,6 +2,7 @@ package com.aston.phenders.time01.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,9 @@ import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.warn
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class BookTime : Fragment(), AnkoLogger {
@@ -96,21 +99,16 @@ class BookTime : Fragment(), AnkoLogger {
 
         bookTimeButton?.setOnClickListener {
 
+            var monthsArray = (resources.getStringArray(R.array.months_array))
+
 
             var timeItem = TimeItem()
             timeItem.projectCode = projectCode.text.toString()
             timeItem.projectTask = projectTask.text.toString()
             timeItem.year = startDateYear.toString()
-            timeItem.month = (startDateMonth + 1).toString()
+            timeItem.month = monthsArray[startDateMonth]
             timeItem.startDate = startDateDay.toLong()
             timeItem.endDate = endDateDay.toLong()
-
-
-            /*
-            timeItem.month = startDate.month.toString()
-            timeItem.year = startDate.year.toString()
-            timeItem.startDate = startDate.dayOfMonth.toLong()
-            timeItem.endDate = endDate.dayOfMonth.toLong()  */
 
             addTimeBooking(timeItem)
 
@@ -128,9 +126,7 @@ class BookTime : Fragment(), AnkoLogger {
         val db = DatabaseHelper(activity!!.applicationContext)
         val tt = TimeTable(db)
 
-
         tt.addNewTime(timeItem)
-
         toast("Time Recorded")
 
 
