@@ -2,10 +2,11 @@ package com.aston.phenders.time01.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
@@ -16,11 +17,10 @@ import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
+import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.warn
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class BookTime : Fragment(), AnkoLogger {
@@ -74,6 +74,7 @@ class BookTime : Fragment(), AnkoLogger {
                 startDateMonth = selectedMonth
                 startDateDay = selectedDay
 
+                verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
 
             }, startDateYear, startDateMonth, startDateDay)
             dpd.show()
@@ -91,6 +92,8 @@ class BookTime : Fragment(), AnkoLogger {
                 endDateMonth = selectedMonth
                 endDateDay = selectedDay
 
+                //verify entered date -> disable button if
+                verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
 
             }, endDateYear, endDateMonth, endDateDay)
             dpd.show()
@@ -129,6 +132,23 @@ class BookTime : Fragment(), AnkoLogger {
         tt.addNewTime(timeItem)
         toast("Time Recorded")
 
+
+    }
+
+    private fun verifyTimeSelection(startYear: Int, startMonth: Int, startDate: Int, endYear: Int, endMonth: Int, endDate: Int) {
+
+
+        date_error_msg.visibility = if ((startYear != endYear) || (startMonth != endMonth)) {
+            button_book_time.isEnabled = false
+            VISIBLE
+
+        } else if (startDate > endDate) {
+            button_book_time.isEnabled = false
+            VISIBLE
+        } else {
+            button_book_time.isEnabled = true
+            INVISIBLE
+        }
 
     }
 

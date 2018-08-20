@@ -36,25 +36,6 @@
         android:inputType="textShortMessage"
         app:layout_constraintTop_toBottomOf="@id/text_input_project_code" />
 
-    <!--<TextView
-        android:id="@+id/start_date_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Date"
-        android:textAppearance="@android:style/TextAppearance.Material.Display1"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@id/start_date_picker"
-        app:layout_constraintTop_toBottomOf="@id/text_input_project_task" />
-
-    <TextView
-        android:id="@+id/end_date_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End Date"
-        android:textAppearance="@android:style/TextAppearance.Material.Display1"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@id/end_date_picker"
-        app:layout_constraintTop_toBottomOf="@id/text_input_project_task" /> !-->
     <Button
         android:id="@+id/button_book_start_date"
         android:layout_width="wrap_content"
@@ -115,6 +96,17 @@
         android:layout_height="wrap_content"
         android:text="Book Time"
         app:layout_constraintTop_toBottomOf="@id/num_input_hours" />
+
+    <TextView
+        android:id="@+id/date_error_msg"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="@string/error_msg_date_selection"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/checkbox_include_weekends"
+        app:layout_constraintTop_toBottomOf="@id/button_book_time" />
 
 
 </android.support.constraint.ConstraintLayout>

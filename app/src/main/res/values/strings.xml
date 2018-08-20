@@ -13,7 +13,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-
+    <!-- Summary drop down lists -->
     <string-array name="months_array">
         <item>January</item>
         <item>February</item>
@@ -39,8 +39,13 @@
     </string-array>
 
 
+    <!--Time card display values (not currently used) -->
     <string name="time_card_project">Code: %1$s Task: %2$s</string>
     <string name="time_card_period">Period: %1$s/%2$s -> %3$s/%4$s</string>
     <string name="time_card_quantity">%1$s Hours</string>
+
+
+    <!--Book Time Page -->
+    <string name="error_msg_date_selection">End date must be in the same month and no earlier than the start date.</string>
 
 </resources>
