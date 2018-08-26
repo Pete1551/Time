@@ -1,6 +1,7 @@
 package com.aston.phenders.time01.database
 
 import com.aston.phenders.time01.models.TimeItem
+import com.google.gson.Gson
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
@@ -15,7 +16,7 @@ class TimeTable(val db: DatabaseHelper) {
                                      startDate: Long?,
                                      endDate: Long?,
                                      year: String?,
-                                     Dates: String?,
+                                     dates: String?,
                                      category: String?,
                                      businessReason: String?,
                                      projectCode: String?,
@@ -27,7 +28,7 @@ class TimeTable(val db: DatabaseHelper) {
             time.startDate = startDate
             time.year = year
             time.endDate = endDate
-            time.dateTime = Dates
+            time.dates = dates
             time.category = category
             time.businessReason = businessReason
             time.projectCode = projectCode
@@ -47,6 +48,14 @@ class TimeTable(val db: DatabaseHelper) {
 
     fun addNewTime(time: TimeItem) {
 
+
+
+
+//datesJson = gson.toJson(response)
+
+
+
+
         db.use {
             insert("time",
 
@@ -54,7 +63,7 @@ class TimeTable(val db: DatabaseHelper) {
                     "year" to time.year,
                     "startDate" to time.startDate,
                     "endDate" to time.endDate,
-                    "dateTime" to time.dateTime,
+                    "dates" to time.dates,
                     "category" to time.category,
                     "businessReason" to time.businessReason,
                     "projectCode" to time.projectCode,

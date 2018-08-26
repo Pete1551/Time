@@ -17,11 +17,14 @@ import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class BookTime : Fragment(), AnkoLogger {
@@ -134,15 +137,22 @@ class BookTime : Fragment(), AnkoLogger {
             dates.add(i.toInt())
             hoursTotal += hours
 
-            warn(hoursTotal)
 
         }
+        val gson = Gson()
+        var datesJson = gson.toJson(dates)
+
+        val notJson = gson.fromJson<ArrayList<Int>>(datesJson,
+                object : TypeToken<ArrayList<Int>>() {}.type)
+        warn(notJson)
+
+        timeItem.dates = datesJson
         timeItem.quantity = hoursTotal
 
         val db = DatabaseHelper(activity!!.applicationContext)
         val tt = TimeTable(db)
 
-       tt.addNewTime(timeItem)
+        tt.addNewTime(timeItem)
         toast("Time Recorded")
 
 

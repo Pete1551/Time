@@ -16,7 +16,7 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
                 "startDate" to INTEGER,
                 "endDate" to INTEGER,
                 "year" to TEXT,
-                "dateTime" to TEXT,
+                "dates" to TEXT,
                 "category" to TEXT,
                 "businessReason" to TEXT,
                 "projectCode" to TEXT,
