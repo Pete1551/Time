@@ -8,7 +8,7 @@ import com.aston.phenders.time01.holders.TimeCardHolder
 import com.aston.phenders.time01.models.TimeItem
 
 
-class TimeCardRecyclerAdapter() : RecyclerView.Adapter<TimeCardHolder>() {
+class TimeCardRecyclerAdapter : RecyclerView.Adapter<TimeCardHolder>() {
     val currentResults: ArrayList<TimeItem> = ArrayList()
 
     override fun getItemCount(): Int {
@@ -17,7 +17,7 @@ class TimeCardRecyclerAdapter() : RecyclerView.Adapter<TimeCardHolder>() {
 
     override fun onBindViewHolder(holder: TimeCardHolder, position: Int) {
         var timeItem = currentResults[position]
-        holder?.updateWithBookedTime(timeItem)
+        holder.updateWithBookedTime(timeItem)
     }
 
 
