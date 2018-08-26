@@ -15,19 +15,19 @@ class TimeTable(val db: DatabaseHelper) {
                                      startDate: Long?,
                                      endDate: Long?,
                                      year: String?,
-                                     DateTime: String?,
+                                     Dates: String?,
                                      category: String?,
                                      businessReason: String?,
                                      projectCode: String?,
                                      projectTask: String?,
-                                     quantity: Number? ->
+                                     quantity: Float ->
             var time = TimeItem()
             time.timeId = timeId
             time.month = month
             time.startDate = startDate
             time.year = year
             time.endDate = endDate
-            time.dateTime = DateTime
+            time.dateTime = Dates
             time.category = category
             time.businessReason = businessReason
             time.projectCode = projectCode
@@ -54,11 +54,12 @@ class TimeTable(val db: DatabaseHelper) {
                     "year" to time.year,
                     "startDate" to time.startDate,
                     "endDate" to time.endDate,
-                    "DateTime" to time.dateTime,
+                    "dateTime" to time.dateTime,
                     "category" to time.category,
                     "businessReason" to time.businessReason,
                     "projectCode" to time.projectCode,
-                    "projectTask" to time.projectTask
+                    "projectTask" to time.projectTask,
+                    "quantity" to time.quantity
             )
         }
 
@@ -66,6 +67,8 @@ class TimeTable(val db: DatabaseHelper) {
     }
 
     fun CalculateQuantity() {
+
+        //Currently handled in BookTime.kt
 
         TODO()
     }

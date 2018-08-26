@@ -20,6 +20,7 @@ import com.aston.phenders.time01.models.TimeItem
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.warn
 import java.util.*
 
 
@@ -39,9 +40,6 @@ class BookTime : Fragment(), AnkoLogger {
         val numOfHours = view.findViewById<EditText>(R.id.num_input_hours)
         val includeWeekends = view.findViewById<CheckBox>(R.id.checkbox_include_weekends)
         val bookTimeButton = view.findViewById<Button>(R.id.button_book_time)
-
-        // val sdf = SimpleDateFormat("dd/MM/yyyy")
-        // val dateNow = sdf.format(Date())
 
 
         var date: Calendar = Calendar.getInstance()
@@ -104,7 +102,6 @@ class BookTime : Fragment(), AnkoLogger {
 
             var monthsArray = (resources.getStringArray(R.array.months_array))
 
-
             var timeItem = TimeItem()
             timeItem.projectCode = projectCode.text.toString()
             timeItem.projectTask = projectTask.text.toString()
@@ -113,9 +110,10 @@ class BookTime : Fragment(), AnkoLogger {
             timeItem.startDate = startDateDay.toLong()
             timeItem.endDate = endDateDay.toLong()
 
-            addTimeBooking(timeItem)
 
-            //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused is this scenario
+            addTimeBooking(timeItem, includeWeekends.isChecked, numOfHours.text.toString().toFloat())
+
+            //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
             (activity as MainActivity).returnToSummary()
 
         }
@@ -124,12 +122,27 @@ class BookTime : Fragment(), AnkoLogger {
     }
 
 
-    fun addTimeBooking(timeItem: TimeItem) {
+    fun addTimeBooking(timeItem: TimeItem, weekends: Boolean, hours: Float) {
+
+        var dates: ArrayList<Int> = ArrayList()
+        var hoursTotal = 0F
+
+
+        for (i in timeItem.startDate!!..timeItem.endDate!!) {
+
+            //check if weekend
+            dates.add(i.toInt())
+            hoursTotal += hours
+
+            warn(hoursTotal)
+
+        }
+        timeItem.quantity = hoursTotal
 
         val db = DatabaseHelper(activity!!.applicationContext)
         val tt = TimeTable(db)
 
-        tt.addNewTime(timeItem)
+       tt.addNewTime(timeItem)
         toast("Time Recorded")
 
 

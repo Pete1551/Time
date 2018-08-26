@@ -11,5 +11,5 @@ class TimeItem {
     var businessReason: String? = null
     var projectCode: String? = null
     var projectTask: String? = null
-    var quantity: Number? = null
+    var quantity: Float? = null
 }
