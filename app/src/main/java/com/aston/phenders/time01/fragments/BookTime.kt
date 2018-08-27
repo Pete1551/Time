@@ -20,6 +20,7 @@ import com.aston.phenders.time01.models.TimeItem
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.warn
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -111,7 +112,7 @@ class BookTime : Fragment(), AnkoLogger {
             timeItem.endDate = endDateDay.toLong()
 
 
-            addTimeBooking(timeItem, includeWeekends.isChecked, numOfHours.text.toString().toFloat())
+            addTimeBooking(timeItem, startDateMonth, includeWeekends.isChecked, numOfHours.text.toString().toFloat())
 
             //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
             (activity as MainActivity).returnToSummary()
@@ -122,26 +123,34 @@ class BookTime : Fragment(), AnkoLogger {
     }
 
 
-    fun addTimeBooking(timeItem: TimeItem, weekends: Boolean, hours: Float) {
+    fun addTimeBooking(timeItem: TimeItem, month: Int, weekends: Boolean, hours: Float) {
 
         var dates: ArrayList<Int> = ArrayList()
         var hoursTotal = 0F
 
+        if (weekends) {
 
-        for (i in timeItem.startDate!!..timeItem.endDate!!) {
+            for (i in timeItem.startDate!!..timeItem.endDate!!) {
+                dates.add(i.toInt())
+                hoursTotal += hours
+            }
+        } else {
 
-            //check if weekend
-            dates.add(i.toInt())
-            hoursTotal += hours
+            var date: Calendar = Calendar.getInstance()
+            date.set(Calendar.YEAR, timeItem.year!!.toInt())
+            date.set(Calendar.MONTH, month) //set month and year outside of for loop as will not change
+
+            for (i in timeItem.startDate!!..timeItem.endDate!!) {
+
+                date.set(Calendar.DAY_OF_MONTH, i.toInt())
+
+                if (date.get(Calendar.DAY_OF_WEEK) != 7 && date.get(Calendar.DAY_OF_WEEK) != 1) { // 7 & 1  == Sat & Sun
+                    dates.add(i.toInt())
+                    hoursTotal += hours
+                }
+            }
 
         }
-
-
-/*
-        val notJson = gson.fromJson<ArrayList<Int>>(datesJson,
-                object : TypeToken<ArrayList<Int>>() {}.type)
-        warn(notJson)
-        */
 
         timeItem.dates = dates
         timeItem.quantity = hoursTotal
