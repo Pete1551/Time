@@ -2,11 +2,13 @@ package com.aston.phenders.time01.database
 
 import com.aston.phenders.time01.models.TimeItem
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
 
 class TimeTable(val db: DatabaseHelper) {
+    val gson = Gson()
 
     fun getAllTime(monthFilter: String, yearFilter: String): ArrayList<TimeItem> {
 
@@ -28,7 +30,10 @@ class TimeTable(val db: DatabaseHelper) {
             time.startDate = startDate
             time.year = year
             time.endDate = endDate
-            time.dates = dates
+
+            time.dates =  gson.fromJson<ArrayList<Int>>(dates,
+                object : TypeToken<ArrayList<Int>>() {}.type) //Convert from JSON to ArrayList
+
             time.category = category
             time.businessReason = businessReason
             time.projectCode = projectCode
@@ -48,22 +53,18 @@ class TimeTable(val db: DatabaseHelper) {
 
     fun addNewTime(time: TimeItem) {
 
-
-
-
-//datesJson = gson.toJson(response)
-
-
-
-
         db.use {
+
+
+            var datesJson = gson.toJson(time.dates) // convert to JSON
+
             insert("time",
 
                     "month" to time.month,
                     "year" to time.year,
                     "startDate" to time.startDate,
                     "endDate" to time.endDate,
-                    "dates" to time.dates,
+                    "dates" to datesJson,
                     "category" to time.category,
                     "businessReason" to time.businessReason,
                     "projectCode" to time.projectCode,
