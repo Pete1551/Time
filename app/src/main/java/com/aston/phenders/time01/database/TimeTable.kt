@@ -31,8 +31,8 @@ class TimeTable(val db: DatabaseHelper) {
             time.year = year
             time.endDate = endDate
 
-            time.dates =  gson.fromJson<ArrayList<Int>>(dates,
-                object : TypeToken<ArrayList<Int>>() {}.type) //Convert from JSON to ArrayList
+            time.dates = gson.fromJson<ArrayList<Int>>(dates,
+                    object : TypeToken<ArrayList<Int>>() {}.type) //Convert from JSON to ArrayList
 
             time.category = category
             time.businessReason = businessReason

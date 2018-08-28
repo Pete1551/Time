@@ -20,7 +20,6 @@ import com.aston.phenders.time01.models.TimeItem
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.warn
 import java.util.*
 import kotlin.collections.ArrayList
 

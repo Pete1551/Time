@@ -15,7 +15,6 @@ import com.aston.phenders.time01.adapters.TimeCardRecyclerAdapter
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.warn
 import java.util.*
 import kotlin.collections.ArrayList
 
