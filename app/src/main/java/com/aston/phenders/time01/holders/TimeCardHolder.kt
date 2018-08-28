@@ -10,7 +10,8 @@ import org.jetbrains.anko.AnkoLogger
 import java.time.YearMonth
 
 class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLogger {
-    var projectCodeTask: TextView = itemView.findViewById(R.id.project_code_task)
+    val projectCodeTask: TextView = itemView.findViewById(R.id.project_code_task)
+    var timeCategoory: TextView = itemView.findViewById(R.id.category)
     var datePeriod: TextView = itemView.findViewById(R.id.date_period)
     var quantity: TextView = itemView.findViewById(R.id.quantity)
 
@@ -34,6 +35,7 @@ class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLo
 
         /////FIX THESE STRINGS
         projectCodeTask.text = "Code: " + timeItem.projectCode + " Task: " + timeItem.projectTask
+        timeCategoory.text = timeItem.category
         datePeriod.text =
                 "Period: " + timeItem.startDate.toString() + "/" + timeItem.month + "->" + timeItem.endDate.toString() + "/" + timeItem.month
         quantity.text = timeItem.quantity.toString() + " Hours"

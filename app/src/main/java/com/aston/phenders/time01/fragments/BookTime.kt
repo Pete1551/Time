@@ -8,10 +8,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
@@ -40,6 +37,12 @@ class BookTime : Fragment(), AnkoLogger {
         val numOfHours = view.findViewById<EditText>(R.id.num_input_hours)
         val includeWeekends = view.findViewById<CheckBox>(R.id.checkbox_include_weekends)
         val bookTimeButton = view.findViewById<Button>(R.id.button_book_time)
+
+        val categorySpinner = view.findViewById<Spinner>(R.id.category_spinner)
+        val adapter = ArrayAdapter.createFromResource(context,
+                R.array.categories_array, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner!!.adapter = adapter
 
 
         var date: Calendar = Calendar.getInstance()
@@ -105,10 +108,12 @@ class BookTime : Fragment(), AnkoLogger {
             var timeItem = TimeItem()
             timeItem.projectCode = projectCode.text.toString()
             timeItem.projectTask = projectTask.text.toString()
+            timeItem.category = categorySpinner.selectedItem.toString()
             timeItem.year = startDateYear.toString()
             timeItem.month = monthsArray[startDateMonth]
             timeItem.startDate = startDateDay.toLong()
             timeItem.endDate = endDateDay.toLong()
+
 
 
             addTimeBooking(timeItem, startDateMonth, includeWeekends.isChecked, numOfHours.text.toString().toFloat())

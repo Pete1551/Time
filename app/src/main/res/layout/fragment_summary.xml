@@ -10,12 +10,12 @@
     <Spinner
         android:id="@+id/month_spinner"
         android:layout_width="180dp"
-        android:layout_height="24dp" />
+        android:layout_height="30dp" />
 
     <Spinner
         android:id="@+id/year_spinner"
         android:layout_width="140dp"
-        android:layout_height="24dp"
+        android:layout_height="30dp"
         app:layout_constraintStart_toEndOf="@id/month_spinner" />
 
 
