@@ -14,15 +14,15 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
 
         var user = User()
 
-        var userParser = rowParser{ userID: Int,
-                           userName: String?,
+        var userParser = rowParser { userID: Int,
+                                     userName: String?,
 
-                           password: String?,
-                           projectCode: String?,
-                           projectTask: String?,
-                           category: String?,
-                           workingHours: Float,
-                           worksWeekends: Int ->
+                                     password: String?,
+                                     projectCode: String?,
+                                     projectTask: String?,
+                                     category: String?,
+                                     workingHours: Float,
+                                     worksWeekends: Int ->
 
             warn("value" + userID)
             user.userID = userID
@@ -33,14 +33,11 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
             user.category = category
             user.workingHours = workingHours
             user.worksWeekends = worksWeekends
-                       
+
         }
-
-
         db.use {
             select("user")
                     .parseOpt(userParser)
-
         }
         return user
     }
