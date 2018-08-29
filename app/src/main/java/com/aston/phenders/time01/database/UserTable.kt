@@ -2,9 +2,9 @@ package com.aston.phenders.time01.database
 
 import com.aston.phenders.time01.models.User
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
+import org.jetbrains.anko.db.update
 import org.jetbrains.anko.warn
 
 
@@ -16,7 +16,6 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
 
         var userParser = rowParser { userID: Int,
                                      userName: String?,
-
                                      password: String?,
                                      projectCode: String?,
                                      projectTask: String?,
@@ -43,15 +42,22 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
     }
 
 
-    fun updateUser() {
+    fun updateUser(user: User) {
         db.use {
-            insert("User",
-                    "id" to 1,
-                    "name" to "Pete",
-                    "workingdays" to "mon-Fri",
-                    "workinghours" to "7.5"
-            )
+            warn("In Update")
+            warn(user.projectCode)
+            update("user",
+                    "projectCode" to user.projectCode,
+                    "projectTask" to user.projectTask,
+                    "category" to user.category,
+                    "workingHours" to user.workingHours,
+                    "worksWeekends" to user.worksWeekends).exec()
+
+
+
+            //TRY SETTING WHERE ARGS
         }
+        warn("out of update")
 
     }
 

@@ -27,7 +27,7 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
 
         db?.createTable("user", true,
                 "userID" to INTEGER,
-                "UserName" to TEXT,
+                "userName" to TEXT,
                 "password" to TEXT,
                 "projectCode" to TEXT,
                 "projectTask" to TEXT,
