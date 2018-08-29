@@ -33,7 +33,7 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
                 "projectTask" to TEXT,
                 "category" to TEXT,
                 "workingHours" to REAL,
-                "worksWeekends" to INTEGER)
+                "worksWeekends" to TEXT)
 
         //insert default values for user
         db?.insert("user",
@@ -44,7 +44,7 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
                 "projectTask" to "BT",
                 "category" to "Standard Time in UK",
                 "workingHours" to 7.5F,
-                "worksWeekends" to 0)
+                "worksWeekends" to false)
         warn("Inserted")
 
     }

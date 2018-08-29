@@ -10,5 +10,5 @@ class User {
     var projectTask: String? = null
     var category: String? = null
     var workingHours: Float? = null
-    var worksWeekends: Int? = null
+    var worksWeekends: String? = null
 }
