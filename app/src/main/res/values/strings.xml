@@ -1,11 +1,11 @@
 <resources>
 
+    <!-- Default and Titles -->
     <string name="app_name">Time</string>
     <string name="title_summary">Summary</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_profile">Profile</string>
     <string name="title_book_time">Book Time</string>
-    <string name="title_activity_main2">DELETE?</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>

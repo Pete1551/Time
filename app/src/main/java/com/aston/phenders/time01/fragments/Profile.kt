@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.aston.phenders.time01.R
+import com.aston.phenders.time01.database.DatabaseHelper
+import com.aston.phenders.time01.database.TimeTable
+import com.aston.phenders.time01.database.UserTable
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.warn
 
 class Profile : Fragment(), AnkoLogger {
     //var text: TextView? = null
@@ -20,8 +24,22 @@ class Profile : Fragment(), AnkoLogger {
         val text = view.findViewById<TextView>(R.id.textView2)
 
 
+        val db = DatabaseHelper(activity!!.applicationContext)
+        val userTable = UserTable(db)
+
+      var user = userTable.getUser()
+
+        warn("Test User : " + user.userID)
+warn(user)
+        warn(user.projectCode)
 
         return view
     }
+    fun getUser(){
+
+    }
+fun updateUser(){
+
+}
 
 }
