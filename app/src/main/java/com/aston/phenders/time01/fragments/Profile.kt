@@ -20,7 +20,7 @@ class Profile : Fragment(), AnkoLogger {
                               savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
         var view = inflater.inflate(R.layout.fragment_profile, container, false)
-        val text = view.findViewById<TextView>(R.id.textView2)
+
 
 
         val db = DatabaseHelper(activity!!.applicationContext)
