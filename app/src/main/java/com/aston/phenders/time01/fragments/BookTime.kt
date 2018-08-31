@@ -15,12 +15,15 @@ import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.TimeItem
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
 
 class BookTime : Fragment(), AnkoLogger {
@@ -76,7 +79,7 @@ class BookTime : Fragment(), AnkoLogger {
                 startDateMonth = selectedMonth
                 startDateDay = selectedDay
 
-                verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
+                verifyDateSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
 
             }, startDateYear, startDateMonth, startDateDay)
             dpd.show()
@@ -95,7 +98,7 @@ class BookTime : Fragment(), AnkoLogger {
                 endDateDay = selectedDay
 
                 //verify entered date -> disable button if
-                verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
+                verifyDateSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
 
             }, endDateYear, endDateMonth, endDateDay)
             dpd.show()
@@ -152,8 +155,8 @@ class BookTime : Fragment(), AnkoLogger {
         super.onResume()
 
 
-        //placed here to fix bug where by moving away from fragment with invalid dates would enable button
-        verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
+
+        verifyDateSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
 
 
     }
@@ -161,13 +164,13 @@ class BookTime : Fragment(), AnkoLogger {
 
     private fun addTimeBooking(timeItem: TimeItem, month: Int, weekends: Boolean, hours: Float) {
 
-        var dates: ArrayList<Int> = ArrayList()
+        var dates: LinkedHashMap<Int, Float> = LinkedHashMap()
         var hoursTotal = 0F
 
         if (weekends) {
 
             for (i in timeItem.startDate!!..timeItem.endDate!!) {
-                dates.add(i.toInt())
+                dates.put(i.toInt(),hours)
                 hoursTotal += hours
             }
         } else {
@@ -181,7 +184,7 @@ class BookTime : Fragment(), AnkoLogger {
                 date.set(Calendar.DAY_OF_MONTH, i.toInt())
 
                 if (date.get(Calendar.DAY_OF_WEEK) != 7 && date.get(Calendar.DAY_OF_WEEK) != 1) { // 7 & 1  == Sat & Sun
-                    dates.add(i.toInt())
+                    dates.put(i.toInt(),hours)
                     hoursTotal += hours
                 }
             }
@@ -200,7 +203,7 @@ class BookTime : Fragment(), AnkoLogger {
 
     }
 
-    private fun verifyTimeSelection(startYear: Int, startMonth: Int, startDate: Int, endYear: Int, endMonth: Int, endDate: Int) {
+    private fun verifyDateSelection(startYear: Int, startMonth: Int, startDate: Int, endYear: Int, endMonth: Int, endDate: Int) {
 
 
         date_error_msg.visibility = if ((startYear != endYear) || (startMonth != endMonth)) {
@@ -217,4 +220,37 @@ class BookTime : Fragment(), AnkoLogger {
 
     }
 
+    fun test(timeItem: TimeItem) {
+
+        var dates: LinkedHashMap<Int, Float> = LinkedHashMap()
+        var hours = 7.5F
+        val gson = Gson()
+
+
+        for (i in timeItem.startDate!!..timeItem.endDate!!) {
+
+            dates.put(i.toInt(), hours)
+            warn(dates)
+
+
+        }
+        warn("GSON INCOMING")
+        var datesJSON: String = gson.toJson(dates)
+        warn(datesJSON)
+        warn("AND BACK TO NORMAL")
+
+        var datesNotJSON = gson.fromJson<LinkedHashMap<Int, Float>>(datesJSON,
+                object : TypeToken<LinkedHashMap<Int, Float>>() {}.type)
+
+
+        warn(datesNotJSON)
+        datesNotJSON.remove(30)
+        datesNotJSON.put(30, 5F)
+        datesNotJSON.putAll(datesNotJSON.toSortedMap())
+        warn(datesNotJSON)
+
+
+    }
+
 }
+

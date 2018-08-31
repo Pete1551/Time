@@ -23,7 +23,7 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
                                      workingHours: Float,
                                      worksWeekends: String? ->
 
-            warn("value" + userID)
+
             user.userID = userID
             user.userName = userName
             user.password = password

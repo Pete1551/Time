@@ -13,13 +13,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
 
-    private val profile: Profile
+    private val profile: Profile = Profile()
     val summary: Summary
     private val bookTime: BookTime
     var loadPrefs : Boolean = true
 
     init {
-        profile = Profile()
+
         summary = Summary()
         bookTime = BookTime()
     }

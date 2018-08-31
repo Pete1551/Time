@@ -6,7 +6,7 @@ class TimeItem {
     var startDate: Long? = null
     var endDate: Long? = null
     var year: String? = null
-    var dates: ArrayList<Int>? = null
+    var dates: LinkedHashMap<Int, Float>? = null
     var category: String? = null
     var businessReason: String? = null
     var projectCode: String? = null
