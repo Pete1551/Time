@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.aston.phenders.time01.R
+import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.User
@@ -42,8 +43,6 @@ class Profile : Fragment(), AnkoLogger {
         warn("user prefs retrieved")
         codeView.setText(user.projectCode)
         taskView.setText(user.projectTask)
-        warn("cat: " + user.category)
-        warn(adapter.getPosition(user.category))
         categoryView.setSelection(adapter.getPosition(user.category))
         hoursView.setText(user.workingHours.toString())
         weekendView.isChecked = user.worksWeekends!!.toBoolean()
@@ -58,6 +57,7 @@ class Profile : Fragment(), AnkoLogger {
             newPrefs.worksWeekends = weekendView.isChecked.toString()
 
             userTable.updateUser(newPrefs)
+            (activity as MainActivity).loadPrefs = true //refect changes in book time page
             toast("Preferences Updated.")
 
         }

@@ -44,8 +44,7 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
 
     fun updateUser(user: User) {
         db.use {
-            warn("In Update")
-            warn(user.projectCode)
+
             update("user",
                     "projectCode" to user.projectCode,
                     "projectTask" to user.projectTask,

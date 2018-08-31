@@ -16,12 +16,12 @@ class MainActivity : AppCompatActivity() {
     private val profile: Profile
     val summary: Summary
     private val bookTime: BookTime
+    var loadPrefs : Boolean = true
 
     init {
         profile = Profile()
         summary = Summary()
         bookTime = BookTime()
-
     }
 
 
@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //setContentView(R.layout.activity_main)
 
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -59,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun returnToSummary() {
+        loadPrefs = true
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_fragment, summary)
         transaction.commit()

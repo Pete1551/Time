@@ -63,9 +63,8 @@ class Summary : Fragment(), AnkoLogger {
 
         }
 
-
         monthSpinner!!.setSelection(dateNow.get(Calendar.MONTH))
-        yearSpinner!!.setSelection(0)//change to get current year
+        yearSpinner!!.setSelection(yearSpinnerAdapter.getPosition((dateNow.get(Calendar.YEAR)).toString()))
 
 
         return view
@@ -73,16 +72,6 @@ class Summary : Fragment(), AnkoLogger {
 
     override fun onResume() {
         super.onResume()
-    }
-
-    fun getTodaysMonthAsInt() {
-
-        TODO("Not Implemented")
-    }
-
-    fun getTodaysYearAsInt() {
-
-        TODO("Not Implemented")
     }
 
     private fun getTimeCards() {

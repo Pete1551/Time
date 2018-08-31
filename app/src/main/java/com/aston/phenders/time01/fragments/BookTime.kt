@@ -13,18 +13,36 @@ import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
+import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.TimeItem
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.warn
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class BookTime : Fragment(), AnkoLogger {
 
+    var date: Calendar = Calendar.getInstance()
+
+    var startDateYear = date.get(Calendar.YEAR)
+    var endDateYear = startDateYear
+
+    var startDateMonth = date.get(Calendar.MONTH)
+    var endDateMonth = startDateMonth
+
+    var startDateDay = date.get(Calendar.DAY_OF_MONTH)
+    var endDateDay = startDateDay
+
+    var initialDisplayMonth = startDateMonth + 1
+    val dateNowString = ("" + startDateDay + "/" + initialDisplayMonth + "/" + startDateYear)
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
+
 
         var view = inflater.inflate(R.layout.fragment_book_time, container, false)
 
@@ -44,23 +62,6 @@ class BookTime : Fragment(), AnkoLogger {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner!!.adapter = adapter
 
-
-        var date: Calendar = Calendar.getInstance()
-
-        var startDateYear = date.get(Calendar.YEAR)
-        var endDateYear = startDateYear
-
-        var startDateMonth = date.get(Calendar.MONTH)
-        var endDateMonth = startDateMonth
-
-        var startDateDay = date.get(Calendar.DAY_OF_MONTH)
-        var endDateDay = startDateDay
-
-        var initialDisplayMonth = startDateMonth + 1
-        val dateNowString = ("" + startDateDay + "/" + initialDisplayMonth + "/" + startDateYear)
-
-        selectedStartDate.text = dateNowString
-        selectedEndDate.text = dateNowString
 
 
         buttonStartDate?.setOnClickListener {
@@ -123,7 +124,38 @@ class BookTime : Fragment(), AnkoLogger {
 
         }
 
+        //set text fields and verify dates when view is loaded
+        selectedStartDate.text = ("" + startDateDay + "/" + (startDateMonth + 1) + "/" + startDateYear)
+        selectedEndDate.text = ("" + endDateDay + "/" + (endDateMonth + 1) + "/" + endDateYear)
+
+
+        if ((activity as MainActivity).loadPrefs) { // set initial values
+            val db = DatabaseHelper(activity!!.applicationContext)
+            val userTable = UserTable(db)
+            var user = userTable.getUser()
+
+            projectCode.setText(user.projectCode)
+            projectTask.setText(user.projectTask)
+            categorySpinner.setSelection(adapter.getPosition(user.category))
+            numOfHours.setText(user.workingHours.toString())
+            includeWeekends.isChecked = user.worksWeekends!!.toBoolean()
+
+            warn("FIRST TIME RUNNING, Loaded User Prefs")
+
+            (activity as MainActivity).loadPrefs = false
+        } //else verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)  THIS SHOULD FIX BUG BUT THROWS ERROR
+
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
+        //placed here to fix bug where by moving away from fragment with invalid dates would enable button
+        verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
+
+
     }
 
 
