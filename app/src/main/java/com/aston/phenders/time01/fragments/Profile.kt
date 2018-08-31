@@ -57,7 +57,7 @@ class Profile : Fragment(), AnkoLogger {
             newPrefs.worksWeekends = weekendView.isChecked.toString()
 
             userTable.updateUser(newPrefs)
-            (activity as MainActivity).loadPrefs = true //refect changes in book time page
+            (activity as MainActivity).loadPrefs = true //reflect changes in book time page
             toast("Preferences Updated.")
 
         }

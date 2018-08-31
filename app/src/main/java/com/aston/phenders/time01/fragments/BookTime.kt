@@ -159,7 +159,7 @@ class BookTime : Fragment(), AnkoLogger {
     }
 
 
-    fun addTimeBooking(timeItem: TimeItem, month: Int, weekends: Boolean, hours: Float) {
+    private fun addTimeBooking(timeItem: TimeItem, month: Int, weekends: Boolean, hours: Float) {
 
         var dates: ArrayList<Int> = ArrayList()
         var hoursTotal = 0F
