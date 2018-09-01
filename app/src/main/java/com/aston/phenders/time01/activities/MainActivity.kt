@@ -14,15 +14,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private val profile: Profile = Profile()
-    val summary: Summary
-    private val bookTime: BookTime
-    var loadPrefs : Boolean = true
+    private val summary: Summary = Summary()
+    private val bookTime: BookTime = BookTime()
+    var loadPrefs: Boolean = true
 
-    init {
-
-        summary = Summary()
-        bookTime = BookTime()
-    }
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

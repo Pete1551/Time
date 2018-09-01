@@ -22,7 +22,6 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
 
@@ -170,7 +169,7 @@ class BookTime : Fragment(), AnkoLogger {
         if (weekends) {
 
             for (i in timeItem.startDate!!..timeItem.endDate!!) {
-                dates.put(i.toInt(),hours)
+                dates.put(i.toInt(), hours)
                 hoursTotal += hours
             }
         } else {
@@ -184,7 +183,7 @@ class BookTime : Fragment(), AnkoLogger {
                 date.set(Calendar.DAY_OF_MONTH, i.toInt())
 
                 if (date.get(Calendar.DAY_OF_WEEK) != 7 && date.get(Calendar.DAY_OF_WEEK) != 1) { // 7 & 1  == Sat & Sun
-                    dates.put(i.toInt(),hours)
+                    dates.put(i.toInt(), hours)
                     hoursTotal += hours
                 }
             }
@@ -248,6 +247,7 @@ class BookTime : Fragment(), AnkoLogger {
         datesNotJSON.put(30, 5F)
         datesNotJSON.putAll(datesNotJSON.toSortedMap())
         warn(datesNotJSON)
+        datesJSON.toList()
 
 
     }

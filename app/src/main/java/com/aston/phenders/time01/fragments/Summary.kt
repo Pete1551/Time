@@ -16,7 +16,6 @@ import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import org.jetbrains.anko.AnkoLogger
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class Summary : Fragment(), AnkoLogger {
@@ -33,7 +32,7 @@ class Summary : Fragment(), AnkoLogger {
 
         val dateNow: Calendar = Calendar.getInstance()
 
-        var test: ArrayList<Int> = ArrayList()
+
 
         summaryRecycler = view.findViewById(R.id.summary_recycler)
         summaryRecycler!!.layoutManager = LinearLayoutManager(context)

@@ -52,11 +52,8 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
                     "workingHours" to user.workingHours,
                     "worksWeekends" to user.worksWeekends).exec()
 
-
-
-            //TRY SETTING WHERE ARGS
         }
-        warn("out of update")
+        warn("User Prefs Updated")
 
     }
 
