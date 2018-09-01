@@ -52,6 +52,22 @@
                 android:textSize="20sp"
                 android:inputType="numberDecimal"
                 />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:layout_margin="4dp"
+                android:padding="4dp"
+                android:src="@drawable/baseline_done_black_36"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:layout_margin="4dp"
+                android:padding="4dp"
+                android:src="@drawable/baseline_delete_outline_black_36"/>
 
 
         </LinearLayout>

@@ -4,7 +4,6 @@ import com.aston.phenders.time01.models.TimeItem
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.db.RowParser
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
@@ -59,16 +58,16 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
         warn("Selecting Item: " + selectedTimeID)
         var time = TimeItem()
         var timeSingleParser = rowParser { timeId: Long?,
-                                     month: String?,
-                                     startDate: Long?,
-                                     endDate: Long?,
-                                     year: String?,
-                                     dates: String?,
-                                     category: String?,
-                                     businessReason: String?,
-                                     projectCode: String?,
-                                     projectTask: String?,
-                                     quantity: Float ->
+                                           month: String?,
+                                           startDate: Long?,
+                                           endDate: Long?,
+                                           year: String?,
+                                           dates: String?,
+                                           category: String?,
+                                           businessReason: String?,
+                                           projectCode: String?,
+                                           projectTask: String?,
+                                           quantity: Float ->
 
             time.timeId = timeId
             time.month = month
@@ -90,7 +89,7 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                     .parseOpt(timeSingleParser)
         }
 
-return time
+        return time
     }
 
     fun addNewTime(time: TimeItem) {
