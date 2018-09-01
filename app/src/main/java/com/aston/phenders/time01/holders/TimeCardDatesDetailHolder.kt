@@ -18,8 +18,7 @@ class TimeCardDatesDetailHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
 
         dateView = itemView.findViewById(R.id.time_date)
         hoursView = itemView.findViewById(R.id.date_hours)
-        warn("Updating Holder")
-        dateView!!.text = dateLine.first.toString() + "/" + month
+        dateView!!.text = dateLine.first.toString() + "/" + month + "."
         hoursView!!.setText(dateLine.second.toString())
     }
 }
