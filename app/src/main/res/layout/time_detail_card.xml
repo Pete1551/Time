@@ -67,7 +67,7 @@
                 android:textAlignment="center"
                 android:layout_margin="4dp"
                 android:padding="4dp"
-                android:src="@drawable/baseline_delete_outline_black_36"/>
+                android:src="@drawable/baseline_delete_black_36"/>
 
 
         </LinearLayout>
