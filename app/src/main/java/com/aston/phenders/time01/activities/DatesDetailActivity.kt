@@ -12,10 +12,7 @@ import com.aston.phenders.time01.adapters.DatesDetailCardAdapter
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.UI
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.warn
+import org.jetbrains.anko.*
 
 class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
@@ -40,11 +37,10 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
         val datePeriod: TextView = findViewById(R.id.detail_date_period)
         val quantity: TextView = findViewById(R.id.detail_quantity)
         val backButton: ImageView = findViewById(R.id.detail_back_button)
+        val deleteButton: ImageView = findViewById(R.id.full_delete_button)
 
 
-        backButton.setOnClickListener {
-            finish()
-        }
+
 
         doAsync {
             var db = DatabaseHelper(applicationContext)
@@ -61,7 +57,28 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
                 quantity.text = timeItem.quantity.toString() + " Hours"
 
             }
+
+            backButton.setOnClickListener {
+                finish()
+            }
+            deleteButton.setOnClickListener {
+
+                alert("Are you sure you want to delete this entire booking?")
+                {
+                    title = "Confirm"
+                    yesButton {
+                        warn(" deleting timeID: " + timeItem.timeId)
+                        val tt = TimeTable(db)
+                        tt.deleteTimeItem(timeItem.timeId!!)
+                        finish()
+                    }
+                    noButton { }
+                }.show()
+
+
+            }
         }
+
 
     }
 

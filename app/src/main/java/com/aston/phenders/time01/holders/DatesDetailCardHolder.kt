@@ -10,7 +10,7 @@ import com.aston.phenders.time01.R
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
-import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.*
 
 class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLogger {
 
@@ -36,11 +36,23 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
 
         }
         deleteButton.setOnClickListener {
-            timeItem.removeDate(dateLine.first)
-            val db = DatabaseHelper(itemView.context!!)
-            val tt = TimeTable(db)
-            tt.updateTimeItem(timeItem)
-            Toast.makeText(itemView.context, "Deleted", Toast.LENGTH_SHORT).show()
+
+            with(itemView.context) {
+                alert("Are you sure you want to remove this date?")
+                {
+                    title = "Confirm"
+                    yesButton {
+                        timeItem.removeDate(dateLine.first)
+                        val db = DatabaseHelper(itemView.context!!)
+                        val tt = TimeTable(db)
+                        tt.updateTimeItem(timeItem)
+                        Toast.makeText(itemView.context, "Deleted", Toast.LENGTH_SHORT).show()
+
+                    }
+                    noButton { }
+                }.show()
+
+            }
         }
     }
 }

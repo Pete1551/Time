@@ -19,12 +19,10 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:layout_marginStart="50dp"
+                android:layout_weight=".80"
                 android:orientation="vertical">
-
 
                 <TextView
                     android:id="@+id/project_code_task"
@@ -52,19 +50,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textAlignment="center" />
-
+                    android:textAlignment="center"/>
             </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
+                android:layout_weight=".20"
                 android:gravity="center"
-                android:padding="6dp"
                 android:src="@drawable/baseline_keyboard_arrow_right_black_36"
                 android:textAlignment="center" />
 

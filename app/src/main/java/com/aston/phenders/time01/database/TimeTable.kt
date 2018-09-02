@@ -4,10 +4,7 @@ import com.aston.phenders.time01.models.TimeItem
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.db.insert
-import org.jetbrains.anko.db.rowParser
-import org.jetbrains.anko.db.select
-import org.jetbrains.anko.db.update
+import org.jetbrains.anko.db.*
 import org.jetbrains.anko.warn
 
 class TimeTable(val db: DatabaseHelper) : AnkoLogger {
@@ -140,7 +137,10 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
 
     fun deleteTimeItem(timeID: Long) {
 
+        db.use {
 
+            delete("time", "timeId = {timeID}", "timeID" to timeID)
+        }
     }
 
 }
