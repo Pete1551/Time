@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.adapters.TimeCardDetailAdapter
@@ -26,7 +27,7 @@ class TimeCardDatesDetail : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        warn("Create Time Card Details Activity")
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_card_dates_detail)
 
         detailsView = findViewById(R.id.time_detail_recycler)
