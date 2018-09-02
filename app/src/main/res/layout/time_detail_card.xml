@@ -54,6 +54,7 @@
                 android:textSize="16sp" />
 
             <ImageView
+                android:id="@+id/update_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -63,6 +64,7 @@
                 android:textAlignment="center" />
 
             <ImageView
+                android:id="@+id/delete_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"

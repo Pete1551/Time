@@ -20,7 +20,6 @@ import org.jetbrains.anko.warn
 class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
 
-
     private var detailsView: RecyclerView? = null
     private var dateDetailsAdapter = DatesDetailCardAdapter()
 
@@ -35,6 +34,7 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
         detailsView!!.layoutManager = LinearLayoutManager(this)
         detailsView!!.adapter = dateDetailsAdapter
 
+
         val projectCodeTask: TextView = findViewById(R.id.detail_project_code_task)
         val timeCategory: TextView = findViewById(R.id.detail_category)
         val datePeriod: TextView = findViewById(R.id.detail_date_period)
@@ -42,9 +42,9 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
         val backButton: ImageView = findViewById(R.id.detail_back_button)
 
 
-backButton.setOnClickListener{
-    finish()
-}
+        backButton.setOnClickListener {
+            finish()
+        }
 
         doAsync {
             var db = DatabaseHelper(applicationContext)
@@ -68,13 +68,13 @@ backButton.setOnClickListener{
     private fun getDates(timeItem: TimeItem) {
 
 
-    var timeDates: List<Pair<Int, Float>> = timeItem.dates!!.toList()
-    warn("time retrieved: " + timeDates)
+        var timeDates: List<Pair<Int, Float>> = timeItem.dates!!.toList()
+        warn("time retrieved: " + timeDates)
 
-    dateDetailsAdapter.dateItems.clear()
-    dateDetailsAdapter.dateItems.addAll(timeDates)
-    dateDetailsAdapter.month = timeItem.month!!
-    dateDetailsAdapter.notifyDataSetChanged()
+        dateDetailsAdapter.timeItem = timeItem
+        dateDetailsAdapter.dateItems.clear()
+        dateDetailsAdapter.dateItems.addAll(timeDates)
+        dateDetailsAdapter.notifyDataSetChanged()
 
     }
 

@@ -2,8 +2,10 @@ package com.aston.phenders.time01.holders
 
 
 import android.content.Intent
+import android.media.Image
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.DatesDetailActivity
@@ -17,6 +19,7 @@ class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLo
     var datePeriod: TextView = itemView.findViewById(R.id.date_period)
     var quantity: TextView = itemView.findViewById(R.id.quantity)
     var timeID: Long? = null
+
 
     init {
 
