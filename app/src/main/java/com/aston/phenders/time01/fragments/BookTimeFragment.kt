@@ -41,7 +41,16 @@ class BookTimeFragment : Fragment(), AnkoLogger {
     var endDateDay = startDateDay
 
     var initialDisplayMonth = startDateMonth + 1
-    val dateNowString = ("" + startDateDay + "/" + initialDisplayMonth + "/" + startDateYear)
+    //val dateNowString = ("" + startDateDay + "/" + initialDisplayMonth + "/" + startDateYear)
+
+    var projectCode: EditText? = null
+    var projectTask: EditText? = null
+    var categorySpinner: Spinner? = null
+
+    var numOfHours: EditText? = null
+    var includeWeekends: CheckBox? = null
+    var adapter :ArrayAdapter<CharSequence>? = null
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,20 +59,22 @@ class BookTimeFragment : Fragment(), AnkoLogger {
 
         var view = inflater.inflate(R.layout.fragment_book_time, container, false)
 
-        val projectCode = view.findViewById<EditText>(R.id.text_input_project_code)
-        val projectTask = view.findViewById<EditText>(R.id.text_input_project_task)
+        projectCode = view.findViewById(R.id.text_input_project_code)
+        projectTask = view.findViewById(R.id.text_input_project_task)
         val buttonStartDate = view.findViewById<Button>(R.id.button_book_start_date)
         val buttonEndDate = view.findViewById<Button>(R.id.button_book_end_date)
         val selectedStartDate = view.findViewById<TextView>(R.id.start_date_selected_date)
         val selectedEndDate = view.findViewById<TextView>(R.id.end_date_selected_date)
-        val numOfHours = view.findViewById<EditText>(R.id.num_input_hours)
-        val includeWeekends = view.findViewById<CheckBox>(R.id.checkbox_include_weekends)
+        numOfHours = view.findViewById(R.id.num_input_hours)
+        includeWeekends = view.findViewById<CheckBox>(R.id.checkbox_include_weekends)
         val bookTimeButton = view.findViewById<Button>(R.id.button_book_time)
 
-        val categorySpinner = view.findViewById<Spinner>(R.id.category_spinner)
-        val adapter = ArrayAdapter.createFromResource(context,
+        adapter = ArrayAdapter.createFromResource(context,
                 R.array.categories_array, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        categorySpinner = view.findViewById<Spinner>(R.id.category_spinner)
+
+        adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner!!.adapter = adapter
 
 
@@ -111,9 +122,9 @@ class BookTimeFragment : Fragment(), AnkoLogger {
             var monthsArray = (resources.getStringArray(R.array.months_array))
 
             var timeItem = TimeItem()
-            timeItem.projectCode = projectCode.text.toString()
-            timeItem.projectTask = projectTask.text.toString()
-            timeItem.category = categorySpinner.selectedItem.toString()
+            timeItem.projectCode = projectCode!!.text.toString()
+            timeItem.projectTask = projectTask!!.text.toString()
+            timeItem.category = categorySpinner!!.selectedItem.toString()
             timeItem.year = startDateYear.toString()
             timeItem.month = monthsArray[startDateMonth]
             timeItem.startDate = startDateDay.toLong()
@@ -121,7 +132,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
 
 
 
-            addTimeBooking(timeItem, startDateMonth, includeWeekends.isChecked, numOfHours.text.toString().toFloat())
+            addTimeBooking(timeItem, startDateMonth, includeWeekends!!.isChecked, numOfHours!!.text.toString().toFloat())
 
 
         }
@@ -131,21 +142,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
         selectedEndDate.text = ("" + endDateDay + "/" + (endDateMonth + 1) + "/" + endDateYear)
 
 
-        if ((activity as MainActivity).loadPrefs) { // set initial values
-            val db = DatabaseHelper(activity!!.applicationContext)
-            val userTable = UserTable(db)
-            var user = userTable.getUser()
-
-            projectCode.setText(user.projectCode)
-            projectTask.setText(user.projectTask)
-            categorySpinner.setSelection(adapter.getPosition(user.category))
-            numOfHours.setText(user.workingHours.toString())
-            includeWeekends.isChecked = user.worksWeekends!!.toBoolean()
-
-            warn("FIRST TIME RUNNING, Loaded User Prefs")
-
-            (activity as MainActivity).loadPrefs = false
-        } //else verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)  THIS SHOULD FIX BUG BUT THROWS ERROR
+        //else verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)  THIS SHOULD FIX BUG BUT THROWS ERROR
 
         return view
     }
@@ -153,7 +150,21 @@ class BookTimeFragment : Fragment(), AnkoLogger {
     override fun onResume() {
         super.onResume()
 
+        if ((activity as MainActivity).loadPrefs) { // set initial values
+            val db = DatabaseHelper(activity!!.applicationContext)
+            val userTable = UserTable(db)
+            var user = userTable.getUser()
 
+            projectCode!!.setText(user.projectCode)
+            projectTask!!.setText(user.projectTask)
+            categorySpinner!!.setSelection(adapter!!.getPosition(user.category))
+            numOfHours!!.setText(user.workingHours.toString())
+            includeWeekends!!.isChecked = user.worksWeekends!!.toBoolean()
+
+            warn("FIRST TIME RUNNING, Loaded User Prefs")
+
+            (activity as MainActivity).loadPrefs = false
+        }
 
         verifyDateSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
 
@@ -206,8 +217,8 @@ class BookTimeFragment : Fragment(), AnkoLogger {
         } else
 
             alert("The selected options do not book any hours") {
-            yesButton { }
-        }.show()
+                yesButton { }
+            }.show()
 
 
     }
