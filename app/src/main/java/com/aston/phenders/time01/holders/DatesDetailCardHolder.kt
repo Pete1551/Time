@@ -8,7 +8,7 @@ import com.aston.phenders.time01.R
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 
-class TimeCardDatesDetailHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLogger {
+class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLogger {
 
     var dateView: TextView? = null
     var hoursView: EditText? = null

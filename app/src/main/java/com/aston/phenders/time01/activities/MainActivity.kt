@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.aston.phenders.time01.R
-import com.aston.phenders.time01.fragments.BookTime
-import com.aston.phenders.time01.fragments.Profile
-import com.aston.phenders.time01.fragments.Summary
+import com.aston.phenders.time01.fragments.BookTimeFragment
+import com.aston.phenders.time01.fragments.ProfileFragment
+import com.aston.phenders.time01.fragments.SummaryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
 
-    private val profile: Profile = Profile()
-    private val summary: Summary = Summary()
-    private val bookTime: BookTime = BookTime()
+    private val profileFragment: ProfileFragment = ProfileFragment()
+    private val summaryFragment: SummaryFragment = SummaryFragment()
+    private val bookTimeFragment: BookTimeFragment = BookTimeFragment()
     var loadPrefs: Boolean = true
 
 
@@ -26,14 +26,14 @@ class MainActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.navigation_summary -> {
-                transaction.replace(R.id.main_fragment, summary)
+                transaction.replace(R.id.main_fragment, summaryFragment)
             }
 
             R.id.navigation_profile -> {
-                transaction.replace(R.id.main_fragment, profile)
+                transaction.replace(R.id.main_fragment, profileFragment)
             }
             R.id.navigation_book_time -> {
-                transaction.replace(R.id.main_fragment, bookTime)
+                transaction.replace(R.id.main_fragment, bookTimeFragment)
             }
         }
         transaction.commit()
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.main_fragment, summary)
+        transaction.add(R.id.main_fragment, summaryFragment)
         transaction.commit()
 
     }
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     fun returnToSummary() {
         loadPrefs = true
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_fragment, summary)
+        transaction.replace(R.id.main_fragment, summaryFragment)
         transaction.commit()
     }
 }

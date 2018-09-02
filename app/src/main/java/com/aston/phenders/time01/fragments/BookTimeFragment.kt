@@ -19,13 +19,15 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
+import org.jetbrains.anko.yesButton
 import java.util.*
 import kotlin.collections.LinkedHashMap
 
 
-class BookTime : Fragment(), AnkoLogger {
+class BookTimeFragment : Fragment(), AnkoLogger {
 
     var date: Calendar = Calendar.getInstance()
 
@@ -121,8 +123,6 @@ class BookTime : Fragment(), AnkoLogger {
 
             addTimeBooking(timeItem, startDateMonth, includeWeekends.isChecked, numOfHours.text.toString().toFloat())
 
-            //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
-            (activity as MainActivity).returnToSummary()
 
         }
 
@@ -190,14 +190,24 @@ class BookTime : Fragment(), AnkoLogger {
 
         }
 
-        timeItem.dates = dates
-        timeItem.quantity = hoursTotal
+        if (hoursTotal != 0F) {
 
-        val db = DatabaseHelper(activity!!.applicationContext)
-        val tt = TimeTable(db)
+            timeItem.dates = dates
+            timeItem.quantity = hoursTotal
 
-        tt.addNewTime(timeItem)
-        toast("Time Recorded")
+            val db = DatabaseHelper(activity!!.applicationContext)
+            val tt = TimeTable(db)
+
+            tt.addNewTime(timeItem)
+            toast("Time Recorded")
+            //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
+            (activity as MainActivity).returnToSummary()
+
+        } else
+
+            alert("The selected options do not book any hours") {
+            yesButton { }
+        }.show()
 
 
     }

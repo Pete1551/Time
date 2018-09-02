@@ -15,7 +15,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
 
-class Profile : Fragment(), AnkoLogger {
+class ProfileFragment : Fragment(), AnkoLogger {
     //var text: TextView? = null
 
 

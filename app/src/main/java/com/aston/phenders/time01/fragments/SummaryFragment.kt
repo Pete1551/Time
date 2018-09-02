@@ -18,7 +18,7 @@ import org.jetbrains.anko.AnkoLogger
 import java.util.*
 
 
-class Summary : Fragment(), AnkoLogger {
+class SummaryFragment : Fragment(), AnkoLogger {
 
     var summaryRecycler: RecyclerView? = null
     var timeCardAdapter: TimeCardRecyclerAdapter = TimeCardRecyclerAdapter()

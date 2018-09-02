@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import com.aston.phenders.time01.R
-import com.aston.phenders.time01.adapters.TimeCardDetailAdapter
+import com.aston.phenders.time01.adapters.DatesDetailCardAdapter
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
@@ -18,19 +17,19 @@ import org.jetbrains.anko.UI
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.warn
 
-class TimeCardDatesDetail : AppCompatActivity(), AnkoLogger {
+class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
 
 
     private var detailsView: RecyclerView? = null
-    private var dateDetailsAdapter = TimeCardDetailAdapter()
+    private var dateDetailsAdapter = DatesDetailCardAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-        setContentView(R.layout.activity_card_dates_detail)
+        setContentView(R.layout.activity_dates_detail)
 
         detailsView = findViewById(R.id.time_detail_recycler)
         detailsView!!.layoutManager = LinearLayoutManager(this)

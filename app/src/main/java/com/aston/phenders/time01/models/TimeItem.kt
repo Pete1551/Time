@@ -11,5 +11,39 @@ class TimeItem {
     var businessReason: String? = null
     var projectCode: String? = null
     var projectTask: String? = null
-    var quantity: Float? = null
+    var quantity: Float = 0F
+
+    fun addNewDate(date: Int, hours: Float) {
+
+
+        this.dates?.put(date, hours)
+        this.dates?.putAll(this.dates!!.toSortedMap())
+        this.quantity += hours
+
+        if (this.startDate!! >= date)
+            this.startDate = date.toLong()
+        else if (this.endDate!! <= date)
+            this.endDate = date.toLong()
+
+
+    }
+
+    fun updateDateHours(date: Int, hours: Float) {
+
+        this.quantity - this.dates!!.getValue(date)
+        this.dates?.put(date, hours)
+        this.quantity + hours
+
+    }
+
+    fun removeDate(date: Int) {
+
+        this.quantity - this.dates!!.getValue(date)
+        this.dates?.remove(date)
+
+    }
+
 }
+
+
+

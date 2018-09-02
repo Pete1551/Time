@@ -7,6 +7,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
+import org.jetbrains.anko.db.update
 import org.jetbrains.anko.warn
 
 class TimeTable(val db: DatabaseHelper) : AnkoLogger {
@@ -117,6 +118,30 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
 
     }
 
+    fun updateTimeItem(time: TimeItem) {
+
+        val datesJson = gson.toJson(time.dates) // convert to JSON
+
+        db.use {
+            update("time",
+                    "month" to time.month,
+                    "year" to time.year,
+                    "startDate" to time.startDate,
+                    "endDate" to time.endDate,
+                    "dates" to datesJson,
+                    "category" to time.category,
+                    "businessReason" to time.businessReason,
+                    "projectCode" to time.projectCode,
+                    "projectTask" to time.projectTask,
+                    "quantity" to time.quantity
+            ).whereArgs("(timeId = {id})", "id" to time.timeId!!).exec()
+        }
+    }
+
+    fun deleteTimeItem(timeID: Long) {
+
+
+    }
 
 }
 

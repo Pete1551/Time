@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.TimeCardDatesDetail"
+            android:name=".activities.DatesDetailActivity"
             android:label="@string/app_name" />
         <activity
             android:name=".activities.ScrollingActivity"

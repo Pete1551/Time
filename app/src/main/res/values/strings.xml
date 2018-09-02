@@ -13,7 +13,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Summary drop down lists -->
+    <!-- SummaryFragment drop down lists -->
     <string-array name="months_array">
         <item>January</item>
         <item>February</item>

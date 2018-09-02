@@ -6,10 +6,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.aston.phenders.time01.R
-import com.aston.phenders.time01.activities.TimeCardDatesDetail
+import com.aston.phenders.time01.activities.DatesDetailActivity
 import com.aston.phenders.time01.models.TimeItem
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.warn
 
 class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLogger {
@@ -24,7 +23,7 @@ class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLo
         itemView.setOnClickListener { view: View? ->
 
             warn("Time ID set to: " + timeID)
-            var detailPageIntent = Intent(itemView.context, TimeCardDatesDetail::class.java)
+            var detailPageIntent = Intent(itemView.context, DatesDetailActivity::class.java)
             detailPageIntent.putExtra("timeID",timeID )
             //detailPageIntent.putExtra("datePeriod", datePeriod.toString())
             itemView.context.startActivity(detailPageIntent)

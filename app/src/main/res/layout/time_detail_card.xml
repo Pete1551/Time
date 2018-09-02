@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/hours_label"
@@ -41,7 +41,7 @@
                 android:labelFor="@id/date_hours"
                 android:text="Hours: "
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/date_hours"
@@ -50,7 +50,8 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:elevation="-4dp"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
