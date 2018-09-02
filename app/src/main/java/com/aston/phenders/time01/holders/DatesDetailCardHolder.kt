@@ -46,8 +46,7 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
                         val db = DatabaseHelper(itemView.context!!)
                         val tt = TimeTable(db)
                         tt.updateTimeItem(timeItem)
-                        Toast.makeText(itemView.context, "Deleted", Toast.LENGTH_SHORT).show()
-
+                        toast("Deleted")
                     }
                     noButton { }
                 }.show()
