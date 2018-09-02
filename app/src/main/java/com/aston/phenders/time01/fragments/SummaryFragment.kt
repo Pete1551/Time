@@ -61,6 +61,15 @@ class SummaryFragment : Fragment(), AnkoLogger {
             }
 
         }
+        yearSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                getTimeCards()
+            }
+
+        }
 
         monthSpinner!!.setSelection(dateNow.get(Calendar.MONTH))
         yearSpinner!!.setSelection(yearSpinnerAdapter.getPosition((dateNow.get(Calendar.YEAR)).toString()))
