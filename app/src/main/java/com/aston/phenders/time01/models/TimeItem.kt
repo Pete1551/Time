@@ -30,7 +30,8 @@ class TimeItem {
 
     fun updateDateHours(date: Int, hours: Float) {
 
-        this.quantity - this.dates!!.getValue(date)
+        this.quantity = this.quantity - this.dates!!.getValue(date)
+        this.quantity = this.quantity + hours
         this.dates?.put(date, hours)
         this.quantity + hours
 
@@ -38,7 +39,7 @@ class TimeItem {
 
     fun removeDate(date: Int) {
 
-        this.quantity - this.dates!!.getValue(date)
+        this.quantity = this.quantity - this.dates!!.getValue(date)
         this.dates?.remove(date)
 
     }
