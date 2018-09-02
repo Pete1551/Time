@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.TextView
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.adapters.TimeCardDetailAdapter
@@ -27,7 +28,8 @@ class TimeCardDatesDetail : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         setContentView(R.layout.activity_card_dates_detail)
 
         detailsView = findViewById(R.id.time_detail_recycler)
@@ -35,10 +37,15 @@ class TimeCardDatesDetail : AppCompatActivity(), AnkoLogger {
         detailsView!!.adapter = dateDetailsAdapter
 
         val projectCodeTask: TextView = findViewById(R.id.detail_project_code_task)
-        val timeCategoory: TextView = findViewById(R.id.detail_category)
+        val timeCategory: TextView = findViewById(R.id.detail_category)
         val datePeriod: TextView = findViewById(R.id.detail_date_period)
         val quantity: TextView = findViewById(R.id.detail_quantity)
+        val backButton: ImageView = findViewById(R.id.detail_back_button)
 
+
+backButton.setOnClickListener{
+    finish()
+}
 
         doAsync {
             var db = DatabaseHelper(applicationContext)
@@ -49,7 +56,7 @@ class TimeCardDatesDetail : AppCompatActivity(), AnkoLogger {
 
             UI {
                 projectCodeTask.text = "Code: " + timeItem.projectCode + " Task: " + timeItem.projectTask
-                timeCategoory.text = timeItem.category
+                timeCategory.text = timeItem.category
                 datePeriod.text =
                         "Period: " + timeItem.startDate.toString() + "/" + timeItem.month + " -> " + timeItem.endDate.toString() + "/" + timeItem.month
                 quantity.text = timeItem.quantity.toString() + " Hours"
