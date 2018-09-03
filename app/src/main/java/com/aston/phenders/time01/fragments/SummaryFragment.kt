@@ -80,6 +80,7 @@ class SummaryFragment : Fragment(), AnkoLogger {
 
     override fun onResume() {
         super.onResume()
+        getTimeCards()
     }
 
     private fun getTimeCards() {
