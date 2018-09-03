@@ -3,6 +3,7 @@ package com.aston.phenders.time01.activities
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.fragments.BookTimeFragment
 import com.aston.phenders.time01.fragments.ProfileFragment
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private val profileFragment: ProfileFragment = ProfileFragment()
     private val summaryFragment: SummaryFragment = SummaryFragment()
     private val bookTimeFragment: BookTimeFragment = BookTimeFragment()
+    private var bottomNavigationView : BottomNavigationView? = null
+
     var loadPrefs: Boolean = true
 
 
@@ -43,12 +46,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        bottomNavigationView = findViewById(R.id.navigation)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.main_fragment, summaryFragment)
         transaction.commit()
+
 
     }
 
@@ -57,6 +61,8 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_fragment, summaryFragment)
         transaction.commit()
+       bottomNavigationView!!.selectedItemId = R.id.navigation_summary
+
     }
 }
 

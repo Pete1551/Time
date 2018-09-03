@@ -64,8 +64,5 @@ class ProfileFragment : Fragment(), AnkoLogger {
         return view
     }
 
-    fun updateUser() {
-
-    }
 
 }

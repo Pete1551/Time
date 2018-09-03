@@ -142,8 +142,6 @@ class BookTimeFragment : Fragment(), AnkoLogger {
         selectedEndDate.text = ("" + endDateDay + "/" + (endDateMonth + 1) + "/" + endDateYear)
 
 
-        //else verifyTimeSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)  THIS SHOULD FIX BUG BUT THROWS ERROR
-
         return view
     }
 
@@ -213,6 +211,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
             toast("Time Recorded")
             //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
             (activity as MainActivity).returnToSummary()
+
 
         } else
 

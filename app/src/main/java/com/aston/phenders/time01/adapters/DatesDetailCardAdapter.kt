@@ -1,5 +1,6 @@
 package com.aston.phenders.time01.adapters
 
+import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,7 +11,7 @@ import com.aston.phenders.time01.models.TimeItem
 
 class DatesDetailCardAdapter : RecyclerView.Adapter<DatesDetailCardHolder>() {
     val dateItems: ArrayList<Pair<Int, Float>> = ArrayList()
-    var appContext: Context? = null
+    var activity: Activity? = null
     var timeItem = TimeItem()
 
 
@@ -20,7 +21,7 @@ class DatesDetailCardAdapter : RecyclerView.Adapter<DatesDetailCardHolder>() {
 
     override fun onBindViewHolder(holder: DatesDetailCardHolder, position: Int) {
         val date = dateItems[position]
-        holder.updateWithDateItem(date, timeItem)
+        holder.updateWithDateItem(date, timeItem, activity!!)
 
     }
 
