@@ -3,24 +3,23 @@ package com.aston.phenders.time01.activities
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.fragments.BookTimeFragment
 import com.aston.phenders.time01.fragments.ProfileFragment
 import com.aston.phenders.time01.fragments.SummaryFragment
+import com.github.kittinunf.fuel.core.FuelManager
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.AnkoLogger
 
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(), AnkoLogger {
 
     private val profileFragment: ProfileFragment = ProfileFragment()
     private val summaryFragment: SummaryFragment = SummaryFragment()
     private val bookTimeFragment: BookTimeFragment = BookTimeFragment()
-    private var bottomNavigationView : BottomNavigationView? = null
+    private var bottomNavigationView: BottomNavigationView? = null
 
     var loadPrefs: Boolean = true
-
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -53,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         transaction.add(R.id.main_fragment, summaryFragment)
         transaction.commit()
 
-
     }
 
     fun returnToSummary() {
@@ -61,8 +59,12 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_fragment, summaryFragment)
         transaction.commit()
-       bottomNavigationView!!.selectedItemId = R.id.navigation_summary
+        bottomNavigationView!!.selectedItemId = R.id.navigation_summary
 
     }
+
+
 }
+
+
 
