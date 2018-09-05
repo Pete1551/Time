@@ -9,12 +9,14 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
+import com.aston.phenders.time01.API.putTime
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.TimeItem
+import com.aston.phenders.time01.models.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_book_time.*
@@ -41,7 +43,6 @@ class BookTimeFragment : Fragment(), AnkoLogger {
     var endDateDay = startDateDay
 
     var initialDisplayMonth = startDateMonth + 1
-    //val dateNowString = ("" + startDateDay + "/" + initialDisplayMonth + "/" + startDateYear)
 
     var projectCode: EditText? = null
     var projectTask: EditText? = null
@@ -49,8 +50,9 @@ class BookTimeFragment : Fragment(), AnkoLogger {
 
     var numOfHours: EditText? = null
     var includeWeekends: CheckBox? = null
-    var adapter :ArrayAdapter<CharSequence>? = null
+    var adapter: ArrayAdapter<CharSequence>? = null
 
+    lateinit var user: User
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -132,7 +134,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
 
 
 
-            addTimeBooking(timeItem, startDateMonth, includeWeekends!!.isChecked, numOfHours!!.text.toString().toFloat())
+            addTimeBooking(timeItem, startDateMonth, includeWeekends!!.isChecked, numOfHours!!.text.toString().toFloat(), user.userID!!)
 
 
         }
@@ -151,7 +153,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
         if ((activity as MainActivity).loadPrefs) { // set initial values
             val db = DatabaseHelper(activity!!.applicationContext)
             val userTable = UserTable(db)
-            var user = userTable.getUser()
+            user = userTable.getUser()
 
             projectCode!!.setText(user.projectCode)
             projectTask!!.setText(user.projectTask)
@@ -170,7 +172,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
     }
 
 
-    private fun addTimeBooking(timeItem: TimeItem, month: Int, weekends: Boolean, hours: Float) {
+    private fun addTimeBooking(timeItem: TimeItem, month: Int, weekends: Boolean, hours: Float, userID: Int) {
 
         var dates: LinkedHashMap<Int, Float> = LinkedHashMap()
         var hoursTotal = 0F
@@ -208,6 +210,12 @@ class BookTimeFragment : Fragment(), AnkoLogger {
             val tt = TimeTable(db)
 
             tt.addNewTime(timeItem)
+
+
+            timeItem.timeId = tt.getLastID()
+            val api: putTime = putTime()
+            api.putTime(timeItem, userID)
+
             toast("Time Recorded")
             //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
             (activity as MainActivity).returnToSummary()

@@ -20,7 +20,6 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
                 "year" to TEXT,
                 "dates" to TEXT,
                 "category" to TEXT,
-                "businessReason" to TEXT,
                 "projectCode" to TEXT,
                 "projectTask" to TEXT,
                 "quantity" to REAL)
@@ -48,24 +47,6 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
         warn("Inserted")
 
     }
-
-
-    /*
-    db?.createTable("user", true,
-            "id" to INTEGER + PRIMARY_KEY,
-            "name" to TEXT,
-            "workingDays" to TEXT,
-            "workingHours" to TEXT)
-
-    db?.createTable("time", true,
-            "timeId" to INTEGER,
-            "month" to TEXT,
-            "DateTime" to TEXT,
-            "category" to TEXT,
-            "businessReason" to TEXT,
-            "projectCode" to TEXT,
-            "projectTask" to TEXT)
-    */
 
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

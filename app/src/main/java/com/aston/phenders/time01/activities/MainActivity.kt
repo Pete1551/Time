@@ -7,7 +7,6 @@ import com.aston.phenders.time01.R
 import com.aston.phenders.time01.fragments.BookTimeFragment
 import com.aston.phenders.time01.fragments.ProfileFragment
 import com.aston.phenders.time01.fragments.SummaryFragment
-import com.github.kittinunf.fuel.core.FuelManager
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 
@@ -46,6 +45,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomNavigationView = findViewById(R.id.navigation)
+
+
+
+
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val transaction = supportFragmentManager.beginTransaction()

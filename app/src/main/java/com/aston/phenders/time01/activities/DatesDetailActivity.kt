@@ -14,7 +14,7 @@ import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
 import org.jetbrains.anko.*
 
-class DatesDetailActivity : AppCompatActivity(),  AnkoLogger {
+class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
 
     private var detailsView: RecyclerView? = null
@@ -91,7 +91,6 @@ class DatesDetailActivity : AppCompatActivity(),  AnkoLogger {
 
 
     private fun getDates(timeItem: TimeItem) {
-
 
 
         var timeDates: List<Pair<Int, Float>> = timeItem.dates!!.toList()

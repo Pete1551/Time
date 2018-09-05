@@ -2,10 +2,8 @@ package com.aston.phenders.time01.holders
 
 
 import android.content.Intent
-import android.media.Image
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.DatesDetailActivity
@@ -27,7 +25,7 @@ class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLo
 
             warn("Time ID set to: " + timeID)
             var detailPageIntent = Intent(itemView.context, DatesDetailActivity::class.java)
-            detailPageIntent.putExtra("timeID",timeID )
+            detailPageIntent.putExtra("timeID", timeID)
             //detailPageIntent.putExtra("datePeriod", datePeriod.toString())
             itemView.context.startActivity(detailPageIntent)
 

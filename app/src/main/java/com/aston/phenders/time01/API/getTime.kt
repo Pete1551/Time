@@ -8,7 +8,7 @@ import org.jetbrains.anko.warn
 
 class getTime : AnkoLogger {
 
-    fun getMissingTime(userID : Int, year: String, dates: ArrayList<Int>) {
+    fun getMissingTime(userID: Int, year: String, dates: ArrayList<Int>) {
 
 
         FuelManager.instance.baseHeaders = mapOf("UserID" to 1.toString(), "dates" to dates.toString())

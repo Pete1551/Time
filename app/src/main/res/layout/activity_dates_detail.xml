@@ -72,13 +72,13 @@
                 android:layout_gravity="center"
                 android:layout_weight=".15"
                 android:gravity="center"
-                android:src="@drawable/baseline_delete_black_36"/>
+                android:src="@drawable/baseline_delete_black_36" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/time_detail_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

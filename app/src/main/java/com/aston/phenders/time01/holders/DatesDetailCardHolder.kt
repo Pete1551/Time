@@ -1,9 +1,6 @@
 package com.aston.phenders.time01.holders
 
 import android.app.Activity
-import android.app.PendingIntent.getActivity
-import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
@@ -11,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.aston.phenders.time01.R
-import com.aston.phenders.time01.activities.DatesDetailActivity
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
@@ -23,7 +19,7 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     var hoursView: EditText? = null
 
 
-    fun updateWithDateItem(dateLine: Pair<Int, Float>, timeItem: TimeItem, activity :Activity) {
+    fun updateWithDateItem(dateLine: Pair<Int, Float>, timeItem: TimeItem, activity: Activity) {
 
         dateView = itemView.findViewById(R.id.time_date)
         hoursView = itemView.findViewById(R.id.date_hours)

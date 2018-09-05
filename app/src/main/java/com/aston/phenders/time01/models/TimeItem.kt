@@ -8,7 +8,6 @@ class TimeItem {
     var year: String? = null
     var dates: LinkedHashMap<Int, Float>? = null
     var category: String? = null
-    var businessReason: String? = null
     var projectCode: String? = null
     var projectTask: String? = null
     var quantity: Float = 0F

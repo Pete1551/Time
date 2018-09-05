@@ -20,7 +20,6 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                                      year: String?,
                                      dates: String?,
                                      category: String?,
-                                     businessReason: String?,
                                      projectCode: String?,
                                      projectTask: String?,
                                      quantity: Float ->
@@ -35,7 +34,6 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                     object : TypeToken<LinkedHashMap<Int, Float>>() {}.type) //Convert from JSON to ArrayList
 
             time.category = category
-            time.businessReason = businessReason
             time.projectCode = projectCode
             time.projectTask = projectTask
             time.quantity = quantity
@@ -62,7 +60,6 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                                            year: String?,
                                            dates: String?,
                                            category: String?,
-                                           businessReason: String?,
                                            projectCode: String?,
                                            projectTask: String?,
                                            quantity: Float ->
@@ -77,7 +74,6 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                     object : TypeToken<LinkedHashMap<Int, Float>>() {}.type) //Convert from JSON to ArrayList
 
             time.category = category
-            time.businessReason = businessReason
             time.projectCode = projectCode
             time.projectTask = projectTask
             time.quantity = quantity
@@ -89,6 +85,23 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
 
         return time
     }
+
+    fun getLastID(): Long {
+        var timeID: Long? = null
+
+
+        var lastIDParser = rowParser { timeId: Long? ->
+
+            timeID = timeId!!
+        }
+        db.use {
+            select("time").column("MAX(timeId)")
+
+                    .parseOpt(lastIDParser)
+        }
+        return timeID!!
+    }
+
 
     fun addNewTime(time: TimeItem) {
 
@@ -105,7 +118,6 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                     "endDate" to time.endDate,
                     "dates" to datesJson,
                     "category" to time.category,
-                    "businessReason" to time.businessReason,
                     "projectCode" to time.projectCode,
                     "projectTask" to time.projectTask,
                     "quantity" to time.quantity
@@ -127,7 +139,6 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                     "endDate" to time.endDate,
                     "dates" to datesJson,
                     "category" to time.category,
-                    "businessReason" to time.businessReason,
                     "projectCode" to time.projectCode,
                     "projectTask" to time.projectTask,
                     "quantity" to time.quantity
