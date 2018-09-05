@@ -12,6 +12,7 @@ class DatesDetailCardAdapter : RecyclerView.Adapter<DatesDetailCardHolder>() {
     val dateItems: ArrayList<Pair<Int, Float>> = ArrayList()
     var activity: Activity? = null
     var timeItem = TimeItem()
+    var userID: Int? = null
 
 
     override fun getItemCount(): Int {
@@ -20,7 +21,7 @@ class DatesDetailCardAdapter : RecyclerView.Adapter<DatesDetailCardHolder>() {
 
     override fun onBindViewHolder(holder: DatesDetailCardHolder, position: Int) {
         val date = dateItems[position]
-        holder.updateWithDateItem(date, timeItem, activity!!)
+        holder.updateWithDateItem(date, timeItem, activity!!, userID!!)
 
     }
 

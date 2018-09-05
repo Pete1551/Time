@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.aston.phenders.time01.API.putTime
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
@@ -19,7 +20,7 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     var hoursView: EditText? = null
 
 
-    fun updateWithDateItem(dateLine: Pair<Int, Float>, timeItem: TimeItem, activity: Activity) {
+    fun updateWithDateItem(dateLine: Pair<Int, Float>, timeItem: TimeItem, activity: Activity, userID : Int) {
 
         dateView = itemView.findViewById(R.id.time_date)
         hoursView = itemView.findViewById(R.id.date_hours)
@@ -33,8 +34,11 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
             val db = DatabaseHelper(itemView.context)
             val tt = TimeTable(db)
             tt.updateTimeItem(timeItem)
+            val api = putTime()
+            api.putTime(timeItem, userID)
             activity.recreate()
             Toast.makeText(itemView.context, "Updated", Toast.LENGTH_SHORT).show()
+
 
         }
         deleteButton.setOnClickListener {
@@ -48,6 +52,8 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
                         val db = DatabaseHelper(itemView.context!!)
                         val tt = TimeTable(db)
                         tt.updateTimeItem(timeItem)
+                        val api = putTime()
+                        api.putTime(timeItem, userID)
                         activity.recreate()
                         toast("Deleted")
 

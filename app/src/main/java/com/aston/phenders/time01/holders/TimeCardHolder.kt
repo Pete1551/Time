@@ -23,10 +23,9 @@ class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLo
 
         itemView.setOnClickListener { view: View? ->
 
-            warn("Time ID set to: " + timeID)
+            warn("Retrieving time item: " + timeID)
             var detailPageIntent = Intent(itemView.context, DatesDetailActivity::class.java)
             detailPageIntent.putExtra("timeID", timeID)
-            //detailPageIntent.putExtra("datePeriod", datePeriod.toString())
             itemView.context.startActivity(detailPageIntent)
 
         }

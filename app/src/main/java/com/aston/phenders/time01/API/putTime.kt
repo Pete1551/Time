@@ -19,7 +19,7 @@ class putTime : AnkoLogger {
 
         FuelManager.instance.baseHeaders = mapOf("userID" to userID.toString())
 
-        val gson: Gson = Gson()
+        val gson = Gson()
         val timeGson = gson.toJson(timeItem)
 
         Fuel.post(Urls.putUrl).body(timeGson).response { request, response, result ->

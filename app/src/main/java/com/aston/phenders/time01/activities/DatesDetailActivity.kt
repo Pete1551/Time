@@ -11,6 +11,7 @@ import com.aston.phenders.time01.R
 import com.aston.phenders.time01.adapters.DatesDetailCardAdapter
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
+import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.TimeItem
 import org.jetbrains.anko.*
 
@@ -54,7 +55,12 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
         warn("Getting TimeItem")
         val timeItem = TimeTable(db).getSingleTimeItem(intent.getLongExtra("timeID", -1))
 
-        getDates(timeItem)
+        //userID required for API
+        var user = UserTable(db).getUser()
+        val userID = user.userID
+
+
+        getDates(timeItem, userID)
 
 
 
@@ -90,7 +96,7 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
     }
 
 
-    private fun getDates(timeItem: TimeItem) {
+    private fun getDates(timeItem: TimeItem, userID: Int?) {
 
 
         var timeDates: List<Pair<Int, Float>> = timeItem.dates!!.toList()
@@ -98,6 +104,7 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
         dateDetailsAdapter.timeItem = timeItem
         dateDetailsAdapter.activity = this
+        dateDetailsAdapter.userID = userID
         dateDetailsAdapter.dateItems.clear()
         dateDetailsAdapter.dateItems.addAll(timeDates)
         dateDetailsAdapter.notifyDataSetChanged()
