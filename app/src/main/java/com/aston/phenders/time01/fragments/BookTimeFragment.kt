@@ -9,16 +9,14 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
-import com.aston.phenders.time01.API.putTime
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
+import com.aston.phenders.time01.api.putTime
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.TimeItem
 import com.aston.phenders.time01.models.User
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.alert
@@ -42,7 +40,6 @@ class BookTimeFragment : Fragment(), AnkoLogger {
     var startDateDay = date.get(Calendar.DAY_OF_MONTH)
     var endDateDay = startDateDay
 
-    var initialDisplayMonth = startDateMonth + 1
 
     var projectCode: EditText? = null
     var projectTask: EditText? = null
@@ -68,7 +65,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
         val selectedStartDate = view.findViewById<TextView>(R.id.start_date_selected_date)
         val selectedEndDate = view.findViewById<TextView>(R.id.end_date_selected_date)
         numOfHours = view.findViewById(R.id.num_input_hours)
-        includeWeekends = view.findViewById<CheckBox>(R.id.checkbox_include_weekends)
+        includeWeekends = view.findViewById(R.id.checkbox_include_weekends)
         val bookTimeButton = view.findViewById<Button>(R.id.button_book_time)
 
         adapter = ArrayAdapter.createFromResource(context,
@@ -78,7 +75,6 @@ class BookTimeFragment : Fragment(), AnkoLogger {
 
         adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner!!.adapter = adapter
-
 
 
         buttonStartDate?.setOnClickListener {
@@ -136,7 +132,6 @@ class BookTimeFragment : Fragment(), AnkoLogger {
 
             addTimeBooking(timeItem, startDateMonth, includeWeekends!!.isChecked, numOfHours!!.text.toString().toFloat(), user.userID!!)
 
-
         }
 
         //set text fields and verify dates when view is loaded
@@ -167,8 +162,6 @@ class BookTimeFragment : Fragment(), AnkoLogger {
         }
 
         verifyDateSelection(startDateYear, startDateMonth, startDateDay, endDateYear, endDateMonth, endDateDay)
-
-
     }
 
 
@@ -212,7 +205,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
             tt.addNewTime(timeItem)
 
 
-            timeItem.timeId = tt.getLastID()
+            timeItem.timeID = tt.getLastID()
             val api: putTime = putTime()
             api.putTime(timeItem, userID)
 
@@ -244,39 +237,6 @@ class BookTimeFragment : Fragment(), AnkoLogger {
             button_book_time.isEnabled = true
             INVISIBLE
         }
-
-    }
-
-    fun test(timeItem: TimeItem) {
-
-        var dates: LinkedHashMap<Int, Float> = LinkedHashMap()
-        var hours = 7.5F
-        val gson = Gson()
-
-
-        for (i in timeItem.startDate!!..timeItem.endDate!!) {
-
-            dates.put(i.toInt(), hours)
-            warn(dates)
-
-
-        }
-        warn("GSON INCOMING")
-        var datesJSON: String = gson.toJson(dates)
-        warn(datesJSON)
-        warn("AND BACK TO NORMAL")
-
-        var datesNotJSON = gson.fromJson<LinkedHashMap<Int, Float>>(datesJSON,
-                object : TypeToken<LinkedHashMap<Int, Float>>() {}.type)
-
-
-        warn(datesNotJSON)
-        datesNotJSON.remove(30)
-        datesNotJSON.put(30, 5F)
-        datesNotJSON.putAll(datesNotJSON.toSortedMap())
-        warn(datesNotJSON)
-        datesJSON.toList()
-
 
     }
 

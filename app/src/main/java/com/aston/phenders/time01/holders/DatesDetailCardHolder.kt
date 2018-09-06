@@ -7,8 +7,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.aston.phenders.time01.API.putTime
 import com.aston.phenders.time01.R
+import com.aston.phenders.time01.api.putTime
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem

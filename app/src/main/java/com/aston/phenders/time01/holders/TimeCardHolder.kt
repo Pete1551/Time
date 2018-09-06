@@ -41,7 +41,7 @@ class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLo
         datePeriod.text =
                 "Period: " + timeItem.startDate.toString() + "/" + timeItem.month + " -> " + timeItem.endDate.toString() + "/" + timeItem.month
         quantity.text = timeItem.quantity.toString() + " Hours"
-        timeID = timeItem.timeId
+        timeID = timeItem.timeID
 
     }
 }

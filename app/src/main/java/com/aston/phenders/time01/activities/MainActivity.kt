@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.aston.phenders.time01.R
+import com.aston.phenders.time01.api.GetTime
+import com.aston.phenders.time01.database.DatabaseHelper
+import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.fragments.BookTimeFragment
 import com.aston.phenders.time01.fragments.ProfileFragment
 import com.aston.phenders.time01.fragments.SummaryFragment
@@ -44,16 +47,20 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //set up bottom navigation bar and set summary as first page.
         bottomNavigationView = findViewById(R.id.navigation)
-
-
-
-
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.main_fragment, summaryFragment)
         transaction.commit()
+
+        //Check for time items on the server
+        var db = DatabaseHelper(this)
+        val userTable = UserTable(db)
+        val user = userTable.getUser()
+        val api = GetTime()
+        api.getServerTime(user.userID!!)
 
     }
 

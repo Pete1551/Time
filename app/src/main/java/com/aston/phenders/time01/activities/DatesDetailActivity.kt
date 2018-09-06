@@ -81,9 +81,9 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
             {
                 title = "Confirm"
                 yesButton {
-                    warn(" deleting timeID: " + timeItem.timeId)
+                    warn(" deleting timeID: " + timeItem.timeID)
                     val tt = TimeTable(db)
-                    tt.deleteTimeItem(timeItem.timeId!!)
+                    tt.deleteTimeItem(timeItem.timeID!!)
                     finish()
                 }
                 noButton {

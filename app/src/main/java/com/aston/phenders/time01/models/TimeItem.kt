@@ -1,7 +1,7 @@
 package com.aston.phenders.time01.models
 
 class TimeItem {
-    var timeId: Long? = null
+    var timeID: Long? = null
     var month: String? = null
     var startDate: Long? = null
     var endDate: Long? = null

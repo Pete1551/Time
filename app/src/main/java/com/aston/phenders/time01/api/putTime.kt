@@ -1,4 +1,4 @@
-package com.aston.phenders.time01.API
+package com.aston.phenders.time01.api
 
 import com.aston.phenders.time01.models.TimeItem
 import com.github.kittinunf.fuel.Fuel
@@ -13,7 +13,6 @@ class putTime : AnkoLogger {
     //trigger on all crud of time item
     //convert time item into body
     //send it
-    //validate response
 
     fun putTime(timeItem: TimeItem, userID: Int) {
 

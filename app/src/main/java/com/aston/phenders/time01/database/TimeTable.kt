@@ -24,7 +24,7 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                                      projectTask: String?,
                                      quantity: Float ->
             var time = TimeItem()
-            time.timeId = timeId
+            time.timeID = timeId
             time.month = month
             time.startDate = startDate
             time.year = year
@@ -64,7 +64,7 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                                            projectTask: String?,
                                            quantity: Float ->
 
-            time.timeId = timeId
+            time.timeID = timeId
             time.month = month
             time.startDate = startDate
             time.year = year
@@ -101,7 +101,6 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
         }
         return timeID!!
     }
-
 
     fun addNewTime(time: TimeItem) {
 
@@ -142,7 +141,7 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
                     "projectCode" to time.projectCode,
                     "projectTask" to time.projectTask,
                     "quantity" to time.quantity
-            ).whereArgs("(timeId = {id})", "id" to time.timeId!!).exec()
+            ).whereArgs("(timeId = {id})", "id" to time.timeID!!).exec()
         }
     }
 
