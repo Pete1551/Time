@@ -3,6 +3,7 @@ package com.aston.phenders.time01.fragments
 import android.os.Bundle
 import android.os.StrictMode
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ class SummaryFragment : Fragment(), AnkoLogger {
     var timeCardAdapter: TimeCardRecyclerAdapter = TimeCardRecyclerAdapter()
     var monthSpinner: Spinner? = null
     var yearSpinner: Spinner? = null
+    var refresher: SwipeRefreshLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,6 +41,8 @@ class SummaryFragment : Fragment(), AnkoLogger {
         summaryRecycler = view.findViewById(R.id.summary_recycler)
         summaryRecycler!!.layoutManager = LinearLayoutManager(context)
         summaryRecycler!!.adapter = timeCardAdapter
+
+        refresher = view.findViewById(R.id.refresher)
 
         monthSpinner = view.findViewById(R.id.month_spinner)
         val adapter = ArrayAdapter.createFromResource(context,
@@ -76,7 +80,16 @@ class SummaryFragment : Fragment(), AnkoLogger {
         monthSpinner!!.setSelection(dateNow.get(Calendar.MONTH))
         yearSpinner!!.setSelection(yearSpinnerAdapter.getPosition((dateNow.get(Calendar.YEAR)).toString()))
 
+        refresher?.setOnRefreshListener {
+            refresher?.isRefreshing = true
+            updateTimeFromServer()
+            getTimeCards()
+            refresher?.isRefreshing = false
+        }
+
         updateTimeFromServer()
+
+
 
         return view
     }
