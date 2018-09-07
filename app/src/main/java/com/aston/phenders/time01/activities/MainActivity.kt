@@ -4,24 +4,24 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.aston.phenders.time01.R
-import com.aston.phenders.time01.api.GetTime
-import com.aston.phenders.time01.database.DatabaseHelper
-import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.fragments.BookTimeFragment
 import com.aston.phenders.time01.fragments.ProfileFragment
 import com.aston.phenders.time01.fragments.SummaryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.yesButton
 
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
 
     private val profileFragment: ProfileFragment = ProfileFragment()
     private val summaryFragment: SummaryFragment = SummaryFragment()
-    private val bookTimeFragment: BookTimeFragment = BookTimeFragment()
+    private var bookTimeFragment: BookTimeFragment = BookTimeFragment()
     private var bottomNavigationView: BottomNavigationView? = null
 
     var loadPrefs: Boolean = true
+    var serverItemsDownloaded: Boolean = false
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -37,7 +37,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 transaction.replace(R.id.main_fragment, profileFragment)
             }
             R.id.navigation_book_time -> {
-                transaction.replace(R.id.main_fragment, bookTimeFragment)
+                if (serverItemsDownloaded)
+                    transaction.replace(R.id.main_fragment, bookTimeFragment)
+                else {
+                    alert("BookTime is disabled until a connection can be established with the server. Refresh the summary view to try again.") {
+                        yesButton { bottomNavigationView!!.selectedItemId = R.id.navigation_summary }
+                    }.show()
+                }
+
             }
         }
         transaction.commit()
@@ -56,7 +63,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         transaction.commit()
 
 
-
     }
 
     fun returnToSummary() {
@@ -67,7 +73,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         bottomNavigationView!!.selectedItemId = R.id.navigation_summary
 
     }
-
 
 }
 

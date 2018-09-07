@@ -1,5 +1,6 @@
 package com.aston.phenders.time01.api
 
+import com.aston.phenders.time01.models.GetResponse
 import com.aston.phenders.time01.models.TimeItem
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
@@ -12,8 +13,9 @@ import org.jetbrains.anko.warn
 
 class GetTime : AnkoLogger {
 
-    fun getServerTime(userID: Int): ArrayList<TimeItem> {
+    fun getServerTime(userID: Int): GetResponse {
 
+        var getResponse = GetResponse()
         var timeItems = ArrayList<TimeItem>()
 
         FuelManager.instance.baseHeaders = mapOf("userID" to userID.toString())
@@ -29,6 +31,7 @@ class GetTime : AnkoLogger {
                 val ex = result.getException()
                 warn("API Failed")
                 warn("result: " + result)
+                getResponse.success = false
             }
             is Result.Success -> {
 
@@ -39,10 +42,12 @@ class GetTime : AnkoLogger {
                 timeItems = Gson().fromJson<ArrayList<TimeItem>>(body,
                         object : TypeToken<ArrayList<TimeItem>>() {}.type)
 
+                getResponse.success = true
+                getResponse.timeItems = timeItems
             }
         }
 
-        return timeItems
+        return getResponse
     }
 
 }

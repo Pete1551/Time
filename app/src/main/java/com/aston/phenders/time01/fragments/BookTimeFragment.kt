@@ -214,6 +214,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
             (activity as MainActivity).returnToSummary()
 
 
+
         } else
 
             alert("The selected options do not book any hours") {

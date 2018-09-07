@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.aston.phenders.time01.R
+import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.adapters.TimeCardRecyclerAdapter
 import com.aston.phenders.time01.api.GetTime
 import com.aston.phenders.time01.database.DatabaseHelper
@@ -124,27 +125,36 @@ class SummaryFragment : Fragment(), AnkoLogger {
         val userTable = UserTable(db)
         val user = userTable.getUser()
         val api = GetTime()
-        val serverItems = api.getServerTime(user.userID!!)
-        warn("server Items: " + serverItems[0].timeID)
+        val getResponse = api.getServerTime(user.userID!!)
 
-        //get array of existing time ID's
-        val timeTable = TimeTable(db)
-        val idArrays: ArrayList<Int> = timeTable.getAllTimeIDs()
+        if (getResponse.success) {
 
-        for (i in serverItems) {
+            (activity as MainActivity).serverItemsDownloaded = true
 
-            if (idArrays.contains(i.timeID!!.toInt())) {
+            if (!getResponse.timeItems.isEmpty()) {
 
-                warn { "Already Exists, Updating Time Item: " + i.timeID }
-                timeTable.updateTimeItem(i)
-            } else {
-                warn { "Does Not Exist, Creating TimeItem: " + i.timeID }
-                timeTable.addNewTime(i)
+
+                //get array of existing time ID's
+                val timeTable = TimeTable(db)
+                val idArrays: ArrayList<Int> = timeTable.getAllTimeIDs()
+
+                for (i in getResponse.timeItems) {
+
+                    if (idArrays.contains(i.timeID!!.toInt())) {
+
+                        warn { "Already Exists, Updating Time Item: " + i.timeID }
+                        timeTable.updateTimeItem(i)
+                    } else {
+                        warn { "Does Not Exist, Creating TimeItem: " + i.timeID }
+                        timeTable.addNewTime(i)
+                    }
+
+                }
+
             }
-
+            else warn { "No Items on server" }
         }
-
-
+        else (activity as MainActivity).serverItemsDownloaded = false
     }
 }
 
