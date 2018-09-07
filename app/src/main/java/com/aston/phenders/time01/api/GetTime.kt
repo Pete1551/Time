@@ -1,6 +1,6 @@
 package com.aston.phenders.time01.api
 
-import com.aston.phenders.time01.models.GetResponse
+import com.aston.phenders.time01.models.APIGetResponse
 import com.aston.phenders.time01.models.TimeItem
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
@@ -13,9 +13,9 @@ import org.jetbrains.anko.warn
 
 class GetTime : AnkoLogger {
 
-    fun getServerTime(userID: Int): GetResponse {
+    fun getServerTime(userID: Int): APIGetResponse {
 
-        var getResponse = GetResponse()
+        var getResponse = APIGetResponse()
         var timeItems = ArrayList<TimeItem>()
 
         FuelManager.instance.baseHeaders = mapOf("userID" to userID.toString())

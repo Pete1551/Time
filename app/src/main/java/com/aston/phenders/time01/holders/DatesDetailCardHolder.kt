@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.aston.phenders.time01.R
-import com.aston.phenders.time01.api.putTime
+import com.aston.phenders.time01.api.PutTime
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
@@ -34,7 +34,7 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
             val db = DatabaseHelper(itemView.context)
             val tt = TimeTable(db)
             tt.updateTimeItem(timeItem)
-            val api = putTime()
+            val api = PutTime()
             api.putTime(timeItem, userID)
             activity.recreate()
             Toast.makeText(itemView.context, "Updated", Toast.LENGTH_SHORT).show()
@@ -52,7 +52,7 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
                         val db = DatabaseHelper(itemView.context!!)
                         val tt = TimeTable(db)
                         tt.updateTimeItem(timeItem)
-                        val api = putTime()
+                        val api = PutTime()
                         api.putTime(timeItem, userID)
                         activity.recreate()
                         toast("Deleted")

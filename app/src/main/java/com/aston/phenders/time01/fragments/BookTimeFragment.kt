@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
-import com.aston.phenders.time01.api.putTime
+import com.aston.phenders.time01.api.PutTime
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.database.UserTable
@@ -20,6 +20,7 @@ import com.aston.phenders.time01.models.User
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
 import org.jetbrains.anko.yesButton
@@ -52,8 +53,10 @@ class BookTimeFragment : Fragment(), AnkoLogger {
     lateinit var user: User
 
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
+
 
 
         var view = inflater.inflate(R.layout.fragment_book_time, container, false)
@@ -205,16 +208,26 @@ class BookTimeFragment : Fragment(), AnkoLogger {
             tt.addNewTime(timeItem)
 
 
+
             timeItem.timeID = tt.getLastID()
-            val api: putTime = putTime()
-            api.putTime(timeItem, userID)
-
-            toast("Time Recorded")
-            //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
-            (activity as MainActivity).returnToSummary()
 
 
+            val api = PutTime()
 
+            val success = api.putTime(timeItem, userID)
+
+
+            if (success) {
+                toast("Time Recorded")
+                //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
+                (activity as MainActivity).returnToSummary()
+            } else {
+                //As API failed, must rollback db insert (it has to happen first to get correct id)
+                tt.deleteTimeItem(timeItem.timeID!!)
+                alert("Server Communication failed, please check internet connection or contact an administrator. This time has not been recorded.") {
+                    yesButton { }
+                }.show()
+            }
         } else
 
             alert("The selected options do not book any hours") {
