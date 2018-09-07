@@ -55,12 +55,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         transaction.add(R.id.main_fragment, summaryFragment)
         transaction.commit()
 
-        //Check for time items on the server
-        var db = DatabaseHelper(this)
-        val userTable = UserTable(db)
-        val user = userTable.getUser()
-        val api = GetTime()
-        api.getServerTime(user.userID!!)
+
 
     }
 

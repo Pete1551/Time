@@ -153,5 +153,61 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
         }
     }
 
+     fun getAllTimeIDs(): ArrayList<Int> {
+        val gson = Gson()
+        var timeIDs: ArrayList<Int> = ArrayList()
+        var timeIDParser = rowParser { timeId: Long?,
+                                       month: String?,
+                                       startDate: Long?,
+                                       endDate: Long?,
+                                       year: String?,
+                                       dates: String?,
+                                       category: String?,
+                                       projectCode: String?,
+                                       projectTask: String?,
+                                       quantity: Float ->
+            var time = TimeItem()
+            time.timeID = timeId
+            time.month = month
+            time.startDate = startDate
+            time.year = year
+            time.endDate = endDate
+
+            time.dates = gson.fromJson<LinkedHashMap<Int, Float>>(dates,
+                    object : TypeToken<LinkedHashMap<Int, Float>>() {}.type) //Convert from JSON to ArrayList
+
+            time.category = category
+            time.projectCode = projectCode
+            time.projectTask = projectTask
+            time.quantity = quantity
+            timeIDs.add(timeId!!.toInt())
+
+            //timeIDs.add(timeId!!.toInt())
+
+        }
+
+        db.use {
+            select("Time")
+
+                    .parseList(timeIDParser)
+        }
+        return timeIDs
+    }
 }
 
+
+   /* fun getAllTimeIDs(): ArrayList<Long> {
+        var timeIDs = ArrayList<Long>()
+
+
+        var lastIDParser = rowParser { timeId: Long? ->
+
+            timeIDs.add(timeId!!)
+        }
+        db.use {
+            select("time").column("timeId")
+
+                    .parse(lastIDParser)
+        }
+        return timeIDs
+    } */
