@@ -114,9 +114,9 @@ class SummaryFragment : Fragment(), AnkoLogger {
         timeCardAdapter.notifyDataSetChanged()
     }
 
-   private fun updateTimeFromServer() {
-        //Allow Blocking for HTTP Request -> only happens for initial get time for server, required to stop conflicts
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+    private fun updateTimeFromServer() {
+        //Allow thread blocking for HTTP Request -> only happens for get time from server, required to stop conflicts
+        val policy = StrictMode.ThreadPolicy.Builder().permitNetwork().build()
         StrictMode.setThreadPolicy(policy)
 
         //Get time items from server
@@ -129,13 +129,7 @@ class SummaryFragment : Fragment(), AnkoLogger {
 
         //get array of existing time ID's
         val timeTable = TimeTable(db)
-        val timeArray: ArrayList<Int> = timeTable.getAllTimeIDs()
         val idArrays: ArrayList<Int> = timeTable.getAllTimeIDs()
-        //val idArrays = ArrayList<Long>()
-
-        /* for (i in timeArray) {
-             idArrays.add(i.timeID!!)
-         } */
 
         for (i in serverItems) {
 
