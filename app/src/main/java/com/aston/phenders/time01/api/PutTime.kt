@@ -25,12 +25,11 @@ class PutTime : AnkoLogger {
         var success: Boolean = false
 
 
-        //indeterminateProgressDialog("This a progress dialog").show()
+
         val (_, response, result) = Urls.putUrl.httpPut().body(timeGson).timeout(5000).responseString()
 
 
         warn("result: " + result)
-        warn("response :" + response)
 
 
         when (result) {
