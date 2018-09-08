@@ -36,15 +36,15 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
 
         //insert default values for user
         db?.insert("user",
-                "userID" to 1,
-                "UserName" to "hendersp",
+                "userID" to 0,
+                "UserName" to "null",
                 "password" to "test",
                 "projectCode" to "1234",
                 "projectTask" to "BT",
                 "category" to "Standard Time in UK",
                 "workingHours" to 7.5F,
                 "worksWeekends" to false)
-        warn("Inserted")
+        warn("Default user values set")
 
     }
 

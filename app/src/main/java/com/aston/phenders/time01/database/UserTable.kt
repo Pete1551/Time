@@ -23,7 +23,6 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
                                      workingHours: Float,
                                      worksWeekends: String? ->
 
-
             user.userID = userID
             user.userName = userName
             user.password = password
@@ -46,6 +45,7 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
         db.use {
 
             update("user",
+                    "userID" to user.userID,
                     "projectCode" to user.projectCode,
                     "projectTask" to user.projectTask,
                     "category" to user.category,
@@ -56,5 +56,4 @@ class UserTable(val db: DatabaseHelper) : AnkoLogger {
         warn("User Prefs Updated")
 
     }
-
 }

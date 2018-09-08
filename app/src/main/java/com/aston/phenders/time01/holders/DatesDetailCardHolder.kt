@@ -20,7 +20,7 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     var hoursView: EditText? = null
 
 
-    fun updateWithDateItem(dateLine: Pair<Int, Float>, timeItem: TimeItem, activity: Activity, userID : Int) {
+    fun updateWithDateItem(dateLine: Pair<Int, Float>, timeItem: TimeItem, activity: Activity, userID: Int) {
 
         dateView = itemView.findViewById(R.id.time_date)
         hoursView = itemView.findViewById(R.id.date_hours)

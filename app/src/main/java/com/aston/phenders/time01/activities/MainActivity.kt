@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         //set up bottom navigation bar and set summary as first page.
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         bottomNavigationView!!.selectedItemId = R.id.navigation_summary
 
     }
+
 
 }
 

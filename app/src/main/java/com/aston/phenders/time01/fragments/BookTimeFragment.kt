@@ -20,7 +20,6 @@ import com.aston.phenders.time01.models.User
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
 import org.jetbrains.anko.yesButton
@@ -53,10 +52,8 @@ class BookTimeFragment : Fragment(), AnkoLogger {
     lateinit var user: User
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
-
 
 
         var view = inflater.inflate(R.layout.fragment_book_time, container, false)

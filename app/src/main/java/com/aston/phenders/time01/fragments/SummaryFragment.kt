@@ -151,10 +151,8 @@ class SummaryFragment : Fragment(), AnkoLogger {
 
                 }
 
-            }
-            else warn { "No Items on server" }
-        }
-        else (activity as MainActivity).serverItemsDownloaded = false
+            } else warn { "No Items on server" }
+        } else (activity as MainActivity).serverItemsDownloaded = false
     }
 }
 

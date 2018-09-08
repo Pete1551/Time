@@ -10,7 +10,6 @@ import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.database.DatabaseHelper
 import com.aston.phenders.time01.database.UserTable
-import com.aston.phenders.time01.models.User
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.warn
@@ -49,7 +48,8 @@ class ProfileFragment : Fragment(), AnkoLogger {
 
 
         savePrefsButton.setOnClickListener {
-            var newPrefs = User()
+            var newPrefs = userTable.getUser()
+
             newPrefs.projectCode = codeView.text.toString()
             newPrefs.projectTask = taskView.text.toString()
             newPrefs.category = categoryView.selectedItem.toString()

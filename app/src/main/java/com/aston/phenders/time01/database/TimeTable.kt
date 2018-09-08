@@ -153,7 +153,7 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
         }
     }
 
-     fun getAllTimeIDs(): ArrayList<Int> {
+    fun getAllTimeIDs(): ArrayList<Int> {
         val gson = Gson()
         var timeIDs: ArrayList<Int> = ArrayList()
         var timeIDParser = rowParser { timeId: Long?,
@@ -196,18 +196,18 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
 }
 
 
-   /* fun getAllTimeIDs(): ArrayList<Long> {
-        var timeIDs = ArrayList<Long>()
+/* fun getAllTimeIDs(): ArrayList<Long> {
+     var timeIDs = ArrayList<Long>()
 
 
-        var lastIDParser = rowParser { timeId: Long? ->
+     var lastIDParser = rowParser { timeId: Long? ->
 
-            timeIDs.add(timeId!!)
-        }
-        db.use {
-            select("time").column("timeId")
+         timeIDs.add(timeId!!)
+     }
+     db.use {
+         select("time").column("timeId")
 
-                    .parse(lastIDParser)
-        }
-        return timeIDs
-    } */
+                 .parse(lastIDParser)
+     }
+     return timeIDs
+ } */
