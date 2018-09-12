@@ -129,29 +129,34 @@ class SummaryFragment : Fragment(), AnkoLogger {
 
         if (getResponse.success) {
 
+            //get array of existing time ID's
+            val timeTable = TimeTable(db)
+            val idArrays: ArrayList<Int> = timeTable.getAllTimeIDs()
             (activity as MainActivity).serverItemsDownloaded = true
 
             if (!getResponse.timeItems.isEmpty()) {
 
-
-                //get array of existing time ID's
-                val timeTable = TimeTable(db)
-                val idArrays: ArrayList<Int> = timeTable.getAllTimeIDs()
-
                 for (i in getResponse.timeItems) {
+                    //insert or update all time items
 
                     if (idArrays.contains(i.timeID!!.toInt())) {
 
                         warn { "Already Exists, Updating Time Item: " + i.timeID }
                         timeTable.updateTimeItem(i)
+                        idArrays.remove(i.timeID!!.toInt())
                     } else {
                         warn { "Does Not Exist, Creating TimeItem: " + i.timeID }
                         timeTable.addNewTime(i)
+                        idArrays.remove(i.timeID!!.toInt())
                     }
 
                 }
 
             } else warn { "No Items on server" }
+          for(i in idArrays)  {
+              //delete all items not on server
+              timeTable.deleteTimeItem(i.toLong())
+          }
         } else (activity as MainActivity).serverItemsDownloaded = false
     }
 }
