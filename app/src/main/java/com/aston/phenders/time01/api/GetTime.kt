@@ -20,7 +20,7 @@ class GetTime : AnkoLogger {
 
         FuelManager.instance.baseHeaders = mapOf("userID" to userID.toString())
 
-        val (_, _, result) = Urls.getUrl.httpGet().responseString()
+        val (_, _, result) = Urls.getUrl.httpGet().timeout(5000).responseString()
 
         //do something with response
         when (result) {
