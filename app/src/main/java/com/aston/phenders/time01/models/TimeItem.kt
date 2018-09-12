@@ -36,11 +36,17 @@ class TimeItem {
 
     }
 
-    fun removeDate(date: Int) {
-
+    fun removeDate(date: Int): String {
+        var msg = "Deleted"
         this.quantity = this.quantity - this.dates!!.getValue(date)
         this.dates?.remove(date)
 
+        if (this.dates!!.isEmpty()) {
+            this.dates!!.put(date, 0F)
+            msg = "Cannot delete the last date item"
+
+        }
+        return msg
     }
 
 }

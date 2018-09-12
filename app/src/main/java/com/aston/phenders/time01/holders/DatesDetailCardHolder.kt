@@ -31,13 +31,23 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
 
         updateButton.setOnClickListener {
             timeItem.updateDateHours(dateLine.first, hoursView?.text.toString().toFloat())
-            val db = DatabaseHelper(itemView.context)
-            val tt = TimeTable(db)
-            tt.updateTimeItem(timeItem)
+
             val api = PutTime()
-            api.putTime(timeItem, userID)
-            activity.recreate()
-            Toast.makeText(itemView.context, "Updated", Toast.LENGTH_SHORT).show()
+            val success = api.putTime(timeItem, userID)
+
+            if (success) {
+                val db = DatabaseHelper(itemView.context)
+                val tt = TimeTable(db)
+                tt.updateTimeItem(timeItem)
+                activity.recreate()
+                Toast.makeText(itemView.context, "Updated", Toast.LENGTH_SHORT).show()
+            } else {
+                with(itemView.context) {
+                    alert("Server Communication failed, please check internet connection or contact an administrator. This update has not been saved.") {
+                        yesButton { }
+                    }.show()
+                }
+            }
 
 
         }
@@ -48,16 +58,25 @@ class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
                 {
                     title = "Confirm"
                     yesButton {
-                        timeItem.removeDate(dateLine.first)
-                        val db = DatabaseHelper(itemView.context!!)
-                        val tt = TimeTable(db)
-                        tt.updateTimeItem(timeItem)
+
+                        val msg = timeItem.removeDate(dateLine.first)
                         val api = PutTime()
-                        api.putTime(timeItem, userID)
-                        activity.recreate()
-                        toast("Deleted")
+                        val success = api.putTime(timeItem, userID)
 
+                        if (success) {
+                            val db = DatabaseHelper(itemView.context!!)
+                            val tt = TimeTable(db)
+                            tt.updateTimeItem(timeItem)
+                            activity.recreate()
+                            toast(msg)
 
+                        } else {
+                            //warn the user and put the item back
+                            timeItem.dates!!.put(dateLine.first, dateLine.second)
+                            alert("Server Communication failed, please check internet connection or contact an administrator. This update has not been saved.") {
+                                yesButton { }
+                            }.show()
+                        }
                     }
                     noButton { }
                 }.show()

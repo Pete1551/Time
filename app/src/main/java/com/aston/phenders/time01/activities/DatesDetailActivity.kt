@@ -86,7 +86,6 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
                     warn(" deleting timeID: " + timeItem.timeID)
 
                     val api = DeleteTime()
-                    warn { "HEADERS: " + user.userID + timeItem.timeID }
                     val success = api.deleteTimeItem(user.userID!!, timeItem.timeID!!.toInt())
 
                     if (success) {

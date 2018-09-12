@@ -34,6 +34,7 @@ class GetTime : AnkoLogger {
 
                 warn("API Success")
                 val body = result.get().trim()
+                warn { body }
                 //Json Parser to retrieve time objects from result
                 timeItems = Gson().fromJson<ArrayList<TimeItem>>(body,
                         object : TypeToken<ArrayList<TimeItem>>() {}.type)
