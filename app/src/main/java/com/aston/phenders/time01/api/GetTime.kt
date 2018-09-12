@@ -20,10 +20,7 @@ class GetTime : AnkoLogger {
 
         FuelManager.instance.baseHeaders = mapOf("userID" to userID.toString())
 
-        //Urls.getUrl.httpGet().responseString { _, _, result ->
-
         val (_, _, result) = Urls.getUrl.httpGet().responseString()
-
 
         //do something with response
         when (result) {
@@ -37,7 +34,7 @@ class GetTime : AnkoLogger {
 
                 warn("API Success")
                 val body = result.get().trim()
-                //Json Parser to retrieve time objects
+                //Json Parser to retrieve time objects from result
                 timeItems = Gson().fromJson<ArrayList<TimeItem>>(body,
                         object : TypeToken<ArrayList<TimeItem>>() {}.type)
 
@@ -45,10 +42,8 @@ class GetTime : AnkoLogger {
                 getResponse.timeItems = timeItems
             }
         }
-
         return getResponse
     }
-
 }
 
 

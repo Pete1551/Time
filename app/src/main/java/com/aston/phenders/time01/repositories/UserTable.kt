@@ -1,4 +1,4 @@
-package com.aston.phenders.time01.database
+package com.aston.phenders.time01.repositories
 
 import com.aston.phenders.time01.models.User
 import org.jetbrains.anko.AnkoLogger

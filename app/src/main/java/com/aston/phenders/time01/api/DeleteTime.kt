@@ -1,17 +1,14 @@
 package com.aston.phenders.time01.api
 
 import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.fuel.httpPost
-import com.github.kittinunf.fuel.httpPut
 import com.github.kittinunf.result.Result
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 
-class DeleteTime: AnkoLogger {
+class DeleteTime : AnkoLogger {
 
-    fun deleteTimeItem(userID : Int, timeID : Int) : Boolean{
+    fun deleteTimeItem(userID: Int, timeID: Int): Boolean {
 
         FuelManager.instance.baseHeaders = mapOf("userID" to userID.toString(), "timeID" to timeID.toString())
         var success: Boolean = false

@@ -1,4 +1,4 @@
-package com.aston.phenders.time01.database
+package com.aston.phenders.time01.repositories
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -50,8 +50,7 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
 
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+         }
 
 
 }

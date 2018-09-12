@@ -35,7 +35,7 @@ class TimeCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLo
 
     fun updateWithBookedTime(timeItem: TimeItem) {
 
-        /////FIX THESE STRINGS
+
         projectCodeTask.text = "Code: " + timeItem.projectCode + " Task: " + timeItem.projectTask
         timeCategoory.text = timeItem.category
         datePeriod.text =

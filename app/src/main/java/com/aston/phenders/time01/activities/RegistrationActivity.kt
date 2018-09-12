@@ -11,8 +11,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import com.aston.phenders.time01.R
-import com.aston.phenders.time01.database.DatabaseHelper
-import com.aston.phenders.time01.database.UserTable
+import com.aston.phenders.time01.repositories.DatabaseHelper
+import com.aston.phenders.time01.repositories.UserTable
 import kotlinx.android.synthetic.main.activity_registration.*
 
 

@@ -12,11 +12,11 @@ import android.widget.*
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.api.PutTime
-import com.aston.phenders.time01.database.DatabaseHelper
-import com.aston.phenders.time01.database.TimeTable
-import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.TimeItem
 import com.aston.phenders.time01.models.User
+import com.aston.phenders.time01.repositories.DatabaseHelper
+import com.aston.phenders.time01.repositories.TimeTable
+import com.aston.phenders.time01.repositories.UserTable
 import kotlinx.android.synthetic.main.fragment_book_time.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.alert
@@ -71,7 +71,7 @@ class BookTimeFragment : Fragment(), AnkoLogger {
         adapter = ArrayAdapter.createFromResource(context,
                 R.array.categories_array, android.R.layout.simple_spinner_item)
 
-        categorySpinner = view.findViewById<Spinner>(R.id.category_spinner)
+        categorySpinner = view.findViewById(R.id.category_spinner)
 
         adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner!!.adapter = adapter
@@ -213,10 +213,9 @@ class BookTimeFragment : Fragment(), AnkoLogger {
 
             val success = api.putTime(timeItem, userID)
 
-
             if (success) {
                 toast("Time Recorded")
-                //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this scenario
+                //returnToSummary couples fragment to activity- bad form but acceptable as fragment will not be reused in this application
                 (activity as MainActivity).returnToSummary()
             } else {
                 //As API failed, must rollback db insert (it has to happen first to get correct id)

@@ -10,12 +10,11 @@ import android.widget.TextView
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.adapters.DatesDetailCardAdapter
 import com.aston.phenders.time01.api.DeleteTime
-import com.aston.phenders.time01.database.DatabaseHelper
-import com.aston.phenders.time01.database.TimeTable
-import com.aston.phenders.time01.database.UserTable
 import com.aston.phenders.time01.models.TimeItem
+import com.aston.phenders.time01.repositories.DatabaseHelper
+import com.aston.phenders.time01.repositories.TimeTable
+import com.aston.phenders.time01.repositories.UserTable
 import org.jetbrains.anko.*
-import org.jetbrains.anko.support.v4.alert
 
 class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
@@ -90,11 +89,11 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
                     warn { "HEADERS: " + user.userID + timeItem.timeID }
                     val success = api.deleteTimeItem(user.userID!!, timeItem.timeID!!.toInt())
 
-                    if(success) {
+                    if (success) {
                         val tt = TimeTable(db)
                         tt.deleteTimeItem(timeItem.timeID!!)
                         finish()
-                    }else{
+                    } else {
                         alert("Server Communication failed, please check internet connection or contact an administrator. This time has not been removed.") {
                             yesButton { }
                         }.show()

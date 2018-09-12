@@ -9,9 +9,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.api.PutTime
-import com.aston.phenders.time01.database.DatabaseHelper
-import com.aston.phenders.time01.database.TimeTable
 import com.aston.phenders.time01.models.TimeItem
+import com.aston.phenders.time01.repositories.DatabaseHelper
+import com.aston.phenders.time01.repositories.TimeTable
 import org.jetbrains.anko.*
 
 class DatesDetailCardHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnkoLogger {

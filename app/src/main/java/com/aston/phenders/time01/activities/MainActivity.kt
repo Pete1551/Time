@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         yesButton { bottomNavigationView!!.selectedItemId = R.id.navigation_summary }
                     }.show()
                 }
-
             }
         }
         transaction.commit()

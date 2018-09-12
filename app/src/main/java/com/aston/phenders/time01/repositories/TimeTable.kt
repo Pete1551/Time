@@ -1,4 +1,4 @@
-package com.aston.phenders.time01.database
+package com.aston.phenders.time01.repositories
 
 import com.aston.phenders.time01.models.TimeItem
 import com.google.gson.Gson
@@ -194,20 +194,3 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
         return timeIDs
     }
 }
-
-
-/* fun getAllTimeIDs(): ArrayList<Long> {
-     var timeIDs = ArrayList<Long>()
-
-
-     var lastIDParser = rowParser { timeId: Long? ->
-
-         timeIDs.add(timeId!!)
-     }
-     db.use {
-         select("time").column("timeId")
-
-                 .parse(lastIDParser)
-     }
-     return timeIDs
- } */

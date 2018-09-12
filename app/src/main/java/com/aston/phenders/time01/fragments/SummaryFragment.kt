@@ -16,9 +16,9 @@ import com.aston.phenders.time01.R
 import com.aston.phenders.time01.activities.MainActivity
 import com.aston.phenders.time01.adapters.TimeCardRecyclerAdapter
 import com.aston.phenders.time01.api.GetTime
-import com.aston.phenders.time01.database.DatabaseHelper
-import com.aston.phenders.time01.database.TimeTable
-import com.aston.phenders.time01.database.UserTable
+import com.aston.phenders.time01.repositories.DatabaseHelper
+import com.aston.phenders.time01.repositories.TimeTable
+import com.aston.phenders.time01.repositories.UserTable
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 import java.util.*
@@ -116,7 +116,7 @@ class SummaryFragment : Fragment(), AnkoLogger {
     }
 
     private fun updateTimeFromServer() {
-        //Allow thread blocking for HTTP Request -> only happens for get time from server, required to stop conflicts
+        //Allow thread blocking for HTTP Request, required to stop conflicts
         val policy = StrictMode.ThreadPolicy.Builder().permitNetwork().build()
         StrictMode.setThreadPolicy(policy)
 
