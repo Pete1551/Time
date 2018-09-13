@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.InputType
 import android.view.WindowManager
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.aston.phenders.time01.R
 import com.aston.phenders.time01.adapters.DatesDetailCardAdapter
 import com.aston.phenders.time01.api.DeleteTime
+import com.aston.phenders.time01.api.PutTime
 import com.aston.phenders.time01.models.TimeItem
 import com.aston.phenders.time01.repositories.DatabaseHelper
 import com.aston.phenders.time01.repositories.TimeTable
 import com.aston.phenders.time01.repositories.UserTable
 import org.jetbrains.anko.*
+
 
 class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
@@ -28,6 +33,7 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
     var quantity: TextView? = null
     var backButton: ImageView? = null
     var deleteButton: ImageView? = null
+    var fab: ImageButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +51,7 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
         quantity = findViewById(R.id.detail_quantity)
         backButton = findViewById(R.id.detail_back_button)
         deleteButton = findViewById(R.id.full_delete_button)
-
+        fab = findViewById(R.id.fab)
 
     }
 
@@ -105,8 +111,66 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
 
         }
+
+        fab!!.setOnClickListener { _ ->
+
+            alert {
+                title = "Add New Date"
+
+                customView {
+                    linearLayout {
+                        val dateEntry = editText {
+                            inputType = InputType.TYPE_CLASS_NUMBER
+                            hint = "Date"
+
+                        }
+
+                        val hoursEntry = editText() {
+                            inputType = (InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL)
+                            hint = "Hours"
+                        }
+                        padding = dip(16)
+
+                        positiveButton("Add Date") {
+                            addDate(timeItem, dateEntry.text.toString().toInt(), hoursEntry.text.toString().toFloat(), user.userID)
+
+                        }
+                    }.orientation = LinearLayout.VERTICAL
+
+                    cancelButton { }
+
+                }
+
+            }.show()
+
+
+        }
+
+
     }
 
+    private fun addDate(timeItem: TimeItem, date: Int, hours: Float, userID: Int?) {
+
+        timeItem.addNewDate(date, hours)
+        val api = PutTime()
+        val success = api.putTime(timeItem, userID!!)
+
+        if (success) {
+            val db = DatabaseHelper(this)
+            val tt = TimeTable(db)
+            tt.updateTimeItem(timeItem)
+            recreate()
+        } else {
+
+            alert("Server Communication failed, please check internet connection or contact an administrator. This update has not been saved.") {
+               timeItem.removeDate(date)
+                yesButton {
+                    recreate()
+                }
+            }.show()
+
+        }
+    }
 
     private fun getDates(timeItem: TimeItem, userID: Int?) {
 

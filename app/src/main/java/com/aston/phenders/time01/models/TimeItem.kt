@@ -1,6 +1,8 @@
 package com.aston.phenders.time01.models
 
-class TimeItem {
+import org.jetbrains.anko.AnkoLogger
+
+class TimeItem : AnkoLogger {
     var timeID: Long? = null
     var month: String? = null
     var startDate: Long? = null
@@ -14,17 +16,21 @@ class TimeItem {
 
     fun addNewDate(date: Int, hours: Float) {
 
-
         this.dates?.put(date, hours)
-        this.dates?.putAll(this.dates!!.toSortedMap())
+
+        // Sort Dates
+        val tempMap = this.dates!!.toSortedMap()
+        this.dates!!.clear()
+        for (i in tempMap) {
+            this.dates?.put(i.key, i.value)
+        }
         this.quantity += hours
 
+        //replace start and date if required
         if (this.startDate!! >= date)
             this.startDate = date.toLong()
         else if (this.endDate!! <= date)
             this.endDate = date.toLong()
-
-
     }
 
     fun updateDateHours(date: Int, hours: Float) {
@@ -38,14 +44,16 @@ class TimeItem {
 
     fun removeDate(date: Int): String {
         var msg = "Deleted"
+
         this.quantity = this.quantity - this.dates!!.getValue(date)
         this.dates?.remove(date)
 
         if (this.dates!!.isEmpty()) {
             this.dates!!.put(date, 0F)
             msg = "Cannot delete the last date item"
-
         }
+        this.startDate = this.dates!!.keys.first().toLong()
+        this.endDate = this.dates!!.keys.last().toLong()
         return msg
     }
 

@@ -60,7 +60,6 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
 
 
-
     <string name="disabled_message">This Fragment is disabled because communication with the server failed. Please refresh the Summary fragment to try again.</string>
     <string name="title_activity_registration">Register</string>
 
@@ -73,6 +72,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="title_activity_test">test</string>
 
 
 </resources>

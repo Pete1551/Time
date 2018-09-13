@@ -44,7 +44,8 @@ class TimeTable(val db: DatabaseHelper) : AnkoLogger {
             select("Time")
                     .whereArgs("(month = {month}) and (year = {year})",
                             "month" to monthFilter,
-                            "year" to yearFilter)
+                            "year" to yearFilter).orderBy("timeID", SqlOrderDirection.DESC)
+
                     .parseList(timeParser)
         }
         return bookings

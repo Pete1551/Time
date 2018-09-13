@@ -40,6 +40,13 @@ dependencies {
     implementation "org.jetbrains.anko:anko-sqlite:0.10.5"
     // Support-v4 (only Anko Commons)
     implementation "org.jetbrains.anko:anko-support-v4-commons:0.10.5"
+    // Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25:0.10.5"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:0.10.5"
+
+    // Coroutine listeners for Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:0.10.5"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:0.10.5"
 
     //Fuel HTTP Client#
     implementation 'com.github.kittinunf.fuel:fuel:1.15.0' //for JVM
