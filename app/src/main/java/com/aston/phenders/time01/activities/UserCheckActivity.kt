@@ -14,8 +14,13 @@ class UserCheckActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //No UI, could add splash screen but currently not enough processing to warrant it
-        checkRegistration()
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkRegistration()
     }
 
 

@@ -50,7 +50,7 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "TimeD
 
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-         }
+    }
 
 
 }

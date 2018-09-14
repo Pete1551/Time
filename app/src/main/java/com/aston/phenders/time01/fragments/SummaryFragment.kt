@@ -153,10 +153,10 @@ class SummaryFragment : Fragment(), AnkoLogger {
                 }
 
             } else warn { "No Items on server" }
-          for(i in idArrays)  {
-              //delete all items not on server
-              timeTable.deleteTimeItem(i.toLong())
-          }
+            for (i in idArrays) {
+                //delete all items not on server
+                timeTable.deleteTimeItem(i.toLong())
+            }
         } else (activity as MainActivity).serverItemsDownloaded = false
     }
 }

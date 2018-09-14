@@ -19,6 +19,7 @@ import com.aston.phenders.time01.repositories.DatabaseHelper
 import com.aston.phenders.time01.repositories.TimeTable
 import com.aston.phenders.time01.repositories.UserTable
 import org.jetbrains.anko.*
+import java.util.*
 
 
 class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
@@ -132,7 +133,13 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
                         padding = dip(16)
 
                         positiveButton("Add Date") {
-                            addDate(timeItem, dateEntry.text.toString().toInt(), hoursEntry.text.toString().toFloat(), user.userID)
+
+                            if (dateEntry.text.toString() == "" || hoursEntry.text.toString() == "") {
+                                toast("Date and Hours are mandatory")
+                            } else {
+                                addDate(timeItem, dateEntry.text.toString().toInt(), hoursEntry.text.toString().toFloat(), user.userID)
+                            }
+
 
                         }
                     }.orientation = LinearLayout.VERTICAL
@@ -151,26 +158,41 @@ class DatesDetailActivity : AppCompatActivity(), AnkoLogger {
 
     private fun addDate(timeItem: TimeItem, date: Int, hours: Float, userID: Int?) {
 
-        timeItem.addNewDate(date, hours)
-        val api = PutTime()
-        val success = api.putTime(timeItem, userID!!)
-
-        if (success) {
-            val db = DatabaseHelper(this)
-            val tt = TimeTable(db)
-            tt.updateTimeItem(timeItem)
-            recreate()
+        if (timeItem.dates!!.keys.contains(date)) {
+            toast("Selected date already has a time entry.")
         } else {
 
-            alert("Server Communication failed, please check internet connection or contact an administrator. This update has not been saved.") {
-               timeItem.removeDate(date)
-                yesButton {
-                    recreate()
-                }
-            }.show()
+            var monthsArray = (resources.getStringArray(R.array.months_array))
+            var calendar: Calendar = Calendar.getInstance()
+            calendar.set(timeItem.year!!.toInt(), monthsArray.indexOf(timeItem.month), date)
 
+            if (calendar.get(Calendar.MONTH) != monthsArray.indexOf(timeItem.month)) {
+                toast("Selected date is not a valid date within this month")
+            } else {
+
+                timeItem.addNewDate(date, hours)
+
+                val api = PutTime()
+                val success = api.putTime(timeItem, userID!!)
+
+                if (success) {
+                    val db = DatabaseHelper(this)
+                    val tt = TimeTable(db)
+                    tt.updateTimeItem(timeItem)
+                    recreate()
+                } else {
+
+                    alert("Server Communication failed, please check internet connection or contact an administrator. This update has not been saved.") {
+                        timeItem.removeDate(date)
+                        yesButton {
+                            recreate()
+                        }
+                    }.show()
+                }
+            }
         }
     }
+
 
     private fun getDates(timeItem: TimeItem, userID: Int?) {
 
